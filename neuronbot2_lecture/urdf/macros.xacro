@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<robot name="simple" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="base_link_stl" value="package://neuronbot2_description/meshes/neuronbot2/base_link.stl" />
+
+  <xacro:macro name="wheel_joints" params="joint_name child_name y_sign yaw_offset">
+    <joint name="${joint_name}" type="continuous">
+      <parent link="base_link"/>
+      <child link="${child_name}"/>
+      <origin xyz="0.0 ${y_sign*0.109} 0.0415" rpy="0 0 ${yaw_offset}"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="wheel_links" params="link_name">
+    <link name="${link_name}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://neuronbot2_description/meshes/neuronbot2/wheel_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://neuronbot2_description/meshes/neuronbot2/wheel_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="red"/>
+      </collision>
+    </link>
+  </xacro:macro>
+
+</robot>
