@@ -44,8 +44,13 @@ install(PROGRAMS
   DESTINATION lib/${PROJECT_NAME}
 )
 
+install(PROGRAMS
+  scripts/nav_to_pose_action_client.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 install(
-  DIRECTORY launch
+  DIRECTORY launch rviz config map
   DESTINATION share/${PROJECT_NAME}
 )
 
