@@ -299,7 +299,7 @@ Visualization Manager:
         - Alpha: 1
           Class: rviz_default_plugins/Polygon
           Color: 25; 255; 0
-          Enabled: false
+          Enabled: true
           Name: Polygon
           Topic:
             Depth: 5
@@ -307,7 +307,7 @@ Visualization Manager:
             History Policy: Keep Last
             Reliability Policy: Reliable
             Value: /global_costmap/published_footprint
-          Value: false
+          Value: true
       Enabled: true
       Name: Global Planner
     - Class: rviz_common/Group
@@ -512,7 +512,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -1.565000295639038
+      Angle: -1.5600001811981201
       Class: rviz_default_plugins/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
@@ -522,11 +522,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 39.459922790527344
+      Scale: 35.587860107421875
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz_default_plugins)
-      X: 1.9657143354415894
-      Y: 0.14576512575149536
+      X: 1.8049883842468262
+      Y: 0.017477208748459816
     Saved: ~
 Window Geometry:
   Displays:

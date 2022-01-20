@@ -6,7 +6,7 @@ amcl:
     alpha3: 0.05
     alpha4: 0.01
     alpha5: 0.04
-    base_frame_id: "base_link"
+    base_frame_id: "base_footprint"
     beam_skip_distance: 0.5
     beam_skip_error_threshold: 0.9
     beam_skip_threshold: 0.3
@@ -124,15 +124,13 @@ controller_server:
     BaseObstacle.scale: 0.02
     # PathAlign.scale: 50.0 # 32.0
     # PathAlign.forward_point_distance: 0.1
-    # Scores a trajectory based on how well aligned the trajectory is with the goal pose.
-    GoalAlign.scale: 24.0
+    GoalAlign.scale: 5.0 # 24.0
     # GoalAlign.forward_point_distance: 0.1
-    # Scores a trajectory based on how far it ends up from the path provided by the global planner.
-    PathDist.scale: 32.0
-    # Scores a trajectory based on how close the trajectory gets the robot to the goal pose.
-    GoalDist.scale: 24.0
-    # Only allows the robot to rotate to the goal orientation when it is sufficiently close to the goal location
+    PathDist.scale: 50.0 # 32.0
+    GoalDist.scale: 5.0 # 24.0
     RotateToGoal.scale: 32.0
+    # RotateToGoal.slowing_factor: 5.0
+    # RotateToGoal.lookahead_time: -1.0
 
 
 ###########################################################################
@@ -240,23 +238,11 @@ map_server:
     use_sim_time: False
     yaml_filename: "turtlebot3_world.yaml"
 
-# planner_server:
-#   ros__parameters:
-#     use_sim_time: False
-#     tolerance: 0.0
-#     use_astar: false
-
 planner_server:
   ros__parameters:
-    expected_planner_frequency: 2.0
-    use_sim_time: True
-    planner_plugins: ["GridBased"]
-    GridBased:
-      plugin: "nav2_navfn_planner/NavfnPlanner"
-      tolerance: 0.5
-      use_astar: false
-      allow_unknown: true
-
+    use_sim_time: False
+    tolerance: 0.0
+    use_astar: false
 
 planner_server_rclcpp_node:
   ros__parameters:
