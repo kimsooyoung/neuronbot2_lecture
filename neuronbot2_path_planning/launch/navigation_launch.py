@@ -85,7 +85,7 @@ def generate_launch_description():
             'autostart', default_value='true',
             description='Automatically startup the nav2 stack'),
 
-        DeclareLaunchArgument(
+        DeclareLaunchArgument(  
             'params_file',
             default_value=os.path.join(my_param_dir, my_param_file),
             description='Full path to the ROS2 parameters file to use'),
