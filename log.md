@@ -16,5 +16,12 @@ ekf_filter_node:
 현재 tf odom은 바퀴에서 나오는 것이다.
 ekf.yaml에서 publish_tf: true로 하면 되긴 하는데 rviz에서 자꾸 순간이동하는 현상 발생하기 때문에 하나만 보이게 false로 하였음.
 
-
 laser scan rviz에서 보려면 qos option Best Effort로 해야 한다.
+
+
+# nav2 로봇 중심이 goal에 오게 하기
+
+edison 아저씨 매개변수를 한단락씩 넣어보기
+
+1. amcl => no
+2. 
