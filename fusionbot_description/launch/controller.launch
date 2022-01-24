@@ -1,0 +1,9 @@
+<launch>
+
+<rosparam file="$(find fusionbot_description)/launch/controller.yaml" command="load"/>
+<node args="회전1_position_controller 회전2_position_controller joint_state_controller " name="controller_spawner" ns="fusionbot" output="screen" pkg="controller_manager" respawn="false" type="spawner"/>
+<node name="robot_state_publisher" output="screen" pkg="robot_state_publisher" respawn="false" type="robot_state_publisher">
+  <remap from="/joint_states" to="/fusionbot/joint_states"/>
+</node>
+
+</launch>

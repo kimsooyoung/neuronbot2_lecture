@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<robot name="fusionbot" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<transmission name="회전1_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="회전1">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="회전1_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="회전2_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="회전2">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="회전2_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+</robot>
