@@ -8,24 +8,91 @@ dos2unix test.py
 
 xacro spawn하니... 에러가 나버리고 시간이 멈춰버린다...
 
+바퀴 방향 바꾸기
+
+<joint name="right_wheel_joint" type="continuous">
+  <origin rpy="0 0 0" xyz="0.0 -0.1 0.05"/>
+  <parent link="base_link"/>
+  <child link="right_wheel_1"/>
+  <axis xyz="-0.0 1.0 0.0"/>
+</joint>
+
+<joint name="left_wheel_joint" type="continuous">
+  <origin rpy="0 0 0" xyz="0.0 0.1 0.05"/>
+  <parent link="base_link"/>
+  <child link="left_wheel_1"/>
+  <axis xyz="-0.0 1.0 0.0"/>
+</joint>
+
 model:// 태그 때문에 안되는 것임 => https://answers.gazebosim.org//question/26073/cannot-spawn-urdf-into-gazebo-using-ros2/
+mu 변경
+
+package://fusionbot_description/meshes/ => model://fusionbot/meshes/fusionbot
+model://fusionbot_description/meshes => model://fusionbot/meshes/fusionbot
 
 gz sdf -p fusionbot.urdf > fusionbot.sdf
 
 models 폴더 만들고 여기 안에 mesh 넣는다.
-model.sdf => 맨 위에 <?xml version='1.0'?> / model://fusionbot/meshes => model://fusionbot/meshes/fusionbot
+model.sdf => 맨 위에 <?xml version='1.0'?> / model://fusionbot_description/meshes => model://fusionbot/meshes/fusionbot
 model.config 넣는다.
 
-시간이 멈춰버리고 아무것도 안됨 ㅠㅠ => ros launch로 안켜서 그런 것임
+plugin은 자동 생성이 안됨
+plugin 추가 => https://github.com/ros-simulation/gazebo_ros_pkgs/wiki/ROS-2-Migration:-Diff-drive
+    <plugin name='differential_drive_controller' filename='libgazebo_ros_diff_drive.so'>
+      <update_rate>30</update_rate>
+      <left_joint>left_wheel_joint</left_joint>
+      <right_joint>right_wheel_joint</right_joint>
+      <wheel_separation>0.2</wheel_separation>
+      <wheel_diameter>0.1</wheel_diameter>
+      <max_wheel_torque>50</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <command_topic>cmd_vel</command_topic>
+      <publish_odom>1</publish_odom>
+      <publish_odom_tf>1</publish_odom_tf>
+      <publish_wheel_tf>0</publish_wheel_tf>
+      <odometry_topic>odom</odometry_topic>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+    </plugin>
 
-add path가 되니까 그냥 urdf 스폰으로 가자
+    <plugin name='neuronbot2_joint_state' filename='libgazebo_ros_joint_state_publisher.so'>
+      <ros>
+        <remapping>~/out:=joint_states</remapping>
+      </ros>
+      <update_rate>30</update_rate>
+      <joint_name>right_wheel_joint</joint_name>
+      <joint_name>left_wheel_joint</joint_name>
+    </plugin>
+
+시간이 멈춰버리고 아무것도 안됨 ㅠㅠ => ros launch로 안켜서 그런 것임
 
 install(DIRECTORY launch meshes urdf rviz models
   DESTINATION  share/${PROJECT_NAME}
 )
 
  ros2 launch fusionbot_description fusionbot_gazebo.launch.py
-=> 잘된다~~ ㅅㅂ ㅠㅠ
-
 색깔 바꿀까?? 흠...
 
+
+================================================
+  <gazebo reference="base_link">
+    <material>${body_color}</material>
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <gazebo reference="right_wheel_1">
+    <material>${body_color}</material>
+    <mu1>1500</mu1>
+    <mu2>1500</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+
+  <gazebo reference="left_wheel_1">
+    <material>${body_color}</material>
+    <mu1>1500</mu1>
+    <mu2>1500</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
