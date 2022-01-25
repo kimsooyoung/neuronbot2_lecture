@@ -1,111 +1,120 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <robot name="fusionbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<xacro:include filename="$(find fusionbot_description)/urdf/materials.xacro" />
-<!-- <xacro:include filename="$(find fusionbot_description)/urdf/fusionbot.trans" /> -->
-<xacro:include filename="$(find fusionbot_description)/urdf/fusionbot.gazebo" />
-<link name="base_link">
-  <inertial>
-    <origin rpy="0 0 0" xyz="0.0037594591254762827 0.0 0.052804115668456025"/>
-    <mass value="2.3079643337726483"/>
-    <inertia ixx="0.00789" ixy="0.0" ixz="-0.000325" iyy="0.008347" iyz="0.0" izz="0.01475"/>
-  </inertial>
-  <visual>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <geometry>
-      <mesh filename="model://fusionbot/meshes/fusionbot/base_link.stl" scale="0.001 0.001 0.001"/>
-    </geometry>
-    <material name="silver"/>
-  </visual>
-  <collision>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <geometry>
-      <mesh filename="model://fusionbot/meshes/fusionbot/base_link.stl" scale="0.001 0.001 0.001"/>
-    </geometry>
-  </collision>
-</link>
+  <xacro:include filename="$(find fusionbot_description)/urdf/materials.xacro" />
+  <!-- <xacro:include filename="$(find fusionbot_description)/urdf/fusionbot.trans" /> -->
+  <xacro:include filename="$(find fusionbot_description)/urdf/fusionbot.gazebo" />
 
-<link name="right_wheel_1">
-  <inertial>
-    <origin rpy="0 0 0" xyz="-5.790023100122029e-18 -0.012499999999999997 0.0"/>
-    <mass value="0.1826050729899067"/>
-    <inertia ixx="0.000124" ixy="-0.0" ixz="0.0" iyy="0.000228" iyz="0.0" izz="0.000124"/>
-  </inertial>
-  <visual>
-    <origin rpy="0 0 0" xyz="-0.0 0.1 -0.05"/>
-    <geometry>
-      <mesh filename="model://fusionbot/meshes/fusionbot/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
-    </geometry>
-    <material name="silver"/>
-  </visual>
-  <collision>
-    <origin rpy="0 0 0" xyz="-0.0 0.1 -0.05"/>
-    <geometry>
-      <mesh filename="model://fusionbot/meshes/fusionbot/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
-    </geometry>
-  </collision>
-</link>
+  <link name='base_footprint' />
 
-<link name="left_wheel_1">
-  <inertial>
-    <origin rpy="0 0 0" xyz="-5.790023100122029e-18 0.012499999999999997 0.0"/>
-    <mass value="0.1826050729899067"/>
-    <inertia ixx="0.000124" ixy="0.0" ixz="0.0" iyy="0.000228" iyz="-0.0" izz="0.000124"/>
-  </inertial>
-  <visual>
-    <origin rpy="0 0 0" xyz="-0.0 -0.1 -0.05"/>
-    <geometry>
-      <mesh filename="model://fusionbot/meshes/fusionbot/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
-    </geometry>
-    <material name="silver"/>
-  </visual>
-  <collision>
-    <origin rpy="0 0 0" xyz="-0.0 -0.1 -0.05"/>
-    <geometry>
-      <mesh filename="model://fusionbot/meshes/fusionbot/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
-    </geometry>
-  </collision>
-</link>
+  <link name="base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0037594591254762827 0.0 0.052804115668456025" />
+      <mass value="2.3079643337726483" />
+      <inertia ixx="0.00789" ixy="0.0" ixz="-0.000325" iyy="0.008347" iyz="0.0" izz="0.01475" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="model://fusionbot/meshes/fusionbot/base_link.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="silver" />
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="model://fusionbot/meshes/fusionbot/base_link.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
 
-<link name="lidar_1">
-  <inertial>
-    <origin rpy="0 0 0" xyz="0.0 0.0 0.012499999999999997"/>
-    <mass value="0.7552585088770711"/>
-    <inertia ixx="0.000271" ixy="0.0" ixz="0.0" iyy="0.000271" iyz="-0.0" izz="0.000463"/>
-  </inertial>
-  <visual>
-    <origin rpy="0 0 0" xyz="-0.05 -0.0 -0.11"/>
-    <geometry>
-      <mesh filename="model://fusionbot/meshes/fusionbot/lidar_1.stl" scale="0.001 0.001 0.001"/>
-    </geometry>
-    <material name="silver"/>
-  </visual>
-  <collision>
-    <origin rpy="0 0 0" xyz="-0.05 -0.0 -0.11"/>
-    <geometry>
-      <mesh filename="model://fusionbot/meshes/fusionbot/lidar_1.stl" scale="0.001 0.001 0.001"/>
-    </geometry>
-  </collision>
-</link>
+  <link name="right_wheel_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-5.790023100122029e-18 -0.012499999999999997 0.0" />
+      <mass value="0.1826050729899067" />
+      <inertia ixx="0.000124" ixy="-0.0" ixz="0.0" iyy="0.000228" iyz="0.0" izz="0.000124" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.0 0.1 -0.05" />
+      <geometry>
+        <mesh filename="model://fusionbot/meshes/fusionbot/right_wheel_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="silver" />
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.0 0.1 -0.05" />
+      <geometry>
+        <mesh filename="model://fusionbot/meshes/fusionbot/right_wheel_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
 
-<joint name="right_wheel_joint" type="continuous">
-  <origin rpy="0 0 0" xyz="0.0 -0.1 0.05"/>
-  <parent link="base_link"/>
-  <child link="right_wheel_1"/>
-  <axis xyz="0.0 1.0 0.0"/>
-</joint>
+  <link name="left_wheel_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-5.790023100122029e-18 0.012499999999999997 0.0" />
+      <mass value="0.1826050729899067" />
+      <inertia ixx="0.000124" ixy="0.0" ixz="0.0" iyy="0.000228" iyz="-0.0" izz="0.000124" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.0 -0.1 -0.05" />
+      <geometry>
+        <mesh filename="model://fusionbot/meshes/fusionbot/left_wheel_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="silver" />
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.0 -0.1 -0.05" />
+      <geometry>
+        <mesh filename="model://fusionbot/meshes/fusionbot/left_wheel_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
 
-<joint name="left_wheel_joint" type="continuous">
-  <origin rpy="0 0 0" xyz="0.0 0.1 0.05"/>
-  <parent link="base_link"/>
-  <child link="left_wheel_1"/>
-  <axis xyz="0.0 1.0 0.0"/>
-</joint>
+  <link name="lidar_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.012499999999999997" />
+      <mass value="0.7552585088770711" />
+      <inertia ixx="0.000271" ixy="0.0" ixz="0.0" iyy="0.000271" iyz="-0.0" izz="0.000463" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.05 -0.0 -0.11" />
+      <geometry>
+        <mesh filename="model://fusionbot/meshes/fusionbot/lidar_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="silver" />
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.05 -0.0 -0.11" />
+      <geometry>
+        <mesh filename="model://fusionbot/meshes/fusionbot/lidar_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+  </link>
 
-<joint name="lidar_joint" type="fixed">
-  <origin rpy="0 0 0" xyz="0.05 0.0 0.11"/>
-  <parent link="base_link"/>
-  <child link="lidar_1"/>
-</joint>
+  <joint name='base_link_joint' type='fixed'>
+    <origin rpy="0 0 0" xyz="0 0 0" />
+    <parent link="base_footprint" />
+    <child link="base_link" />
+  </joint>
+
+  <joint name="right_wheel_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0.0 -0.1 0.05" />
+    <parent link="base_link" />
+    <child link="right_wheel_1" />
+    <axis xyz="0.0 1.0 0.0" />
+  </joint>
+
+  <joint name="left_wheel_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0.0 0.1 0.05" />
+    <parent link="base_link" />
+    <child link="left_wheel_1" />
+    <axis xyz="0.0 1.0 0.0" />
+  </joint>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.05 0.0 0.11" />
+    <parent link="base_link" />
+    <child link="lidar_1" />
+  </joint>
 
 </robot>
