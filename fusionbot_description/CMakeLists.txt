@@ -73,7 +73,7 @@ install(PROGRAMS
 )
 
 ## Install
-install(DIRECTORY launch meshes urdf rviz
+install(DIRECTORY launch meshes urdf rviz models
   DESTINATION  share/${PROJECT_NAME}
 )
 

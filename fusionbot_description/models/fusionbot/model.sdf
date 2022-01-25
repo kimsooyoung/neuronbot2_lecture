@@ -1,0 +1,227 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name='fusionbot'>
+    <link name='base_link'>
+      <inertial>
+        <pose>0.005911 -0 0.055866 0 -0 0</pose>
+        <mass>2.43042</mass>
+        <inertia>
+          <ixx>0.00846231</ixx>
+          <ixy>-1.05548e-19</ixy>
+          <ixz>-0.000670697</ixz>
+          <iyy>0.00919378</iyy>
+          <iyz>-1.59521e-19</iyz>
+          <izz>0.0151035</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://fusionbot/meshes/fusionbot/base_link.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__lidar_1_collision_1'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://fusionbot/meshes/fusionbot/lidar_1.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://fusionbot/meshes/fusionbot/base_link.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Silver</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__lidar_1_visual_1'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://fusionbot/meshes/fusionbot/lidar_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Silver</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='left_wheel_link' type='revolute'>
+      <pose relative_to='base_link'>0 0.1 0.05 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>left_wheel_1</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_wheel_1'>
+      <pose relative_to='left_wheel_link'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 0.0125 0 0 -0 0</pose>
+        <mass>0.182605</mass>
+        <inertia>
+          <ixx>0.000124</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000228</iyy>
+          <iyz>0</iyz>
+          <izz>0.000124</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_wheel_1_collision'>
+        <pose>0 -0.1 -0.05 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://fusionbot/meshes/fusionbot/left_wheel_1.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='left_wheel_1_visual'>
+        <pose>0 -0.1 -0.05 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://fusionbot/meshes/fusionbot/left_wheel_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Silver</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <self_collide>1</self_collide>
+    </link>
+    <joint name='right_wheel_link' type='revolute'>
+      <pose relative_to='base_link'>0 -0.1 0.05 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>right_wheel_1</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_wheel_1'>
+      <pose relative_to='right_wheel_link'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 -0.0125 0 0 -0 0</pose>
+        <mass>0.182605</mass>
+        <inertia>
+          <ixx>0.000124</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000228</iyy>
+          <iyz>0</iyz>
+          <izz>0.000124</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_wheel_1_collision'>
+        <pose>0 0.1 -0.05 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://fusionbot/meshes/fusionbot/right_wheel_1.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+              <mu2>0.2</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='right_wheel_1_visual'>
+        <pose>0 0.1 -0.05 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://fusionbot/meshes/fusionbot/right_wheel_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Silver</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <self_collide>1</self_collide>
+    </link>
+    <static>0</static>
+    <!-- <plugin name='control' filename='libgazebo_ros_control.so'/> -->
+  </model>
+</sdf>
