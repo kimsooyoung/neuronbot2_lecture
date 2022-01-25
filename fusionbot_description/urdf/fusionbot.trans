@@ -1,23 +1,23 @@
 <?xml version="1.0" ?>
 <robot name="fusionbot" xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
-<transmission name="회전1_tran">
+<transmission name="right_wheel_tran">
   <type>transmission_interface/SimpleTransmission</type>
-  <joint name="회전1">
+  <joint name="right_wheel_link">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
-  <actuator name="회전1_actr">
+  <actuator name="right_wheel_actr">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     <mechanicalReduction>1</mechanicalReduction>
   </actuator>
 </transmission>
 
-<transmission name="회전2_tran">
+<transmission name="left_wheel_tran">
   <type>transmission_interface/SimpleTransmission</type>
-  <joint name="회전2">
+  <joint name="left_wheel_link">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
-  <actuator name="회전2_actr">
+  <actuator name="left_wheel_actr">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     <mechanicalReduction>1</mechanicalReduction>
   </actuator>
