@@ -35,7 +35,8 @@ def generate_launch_description():
     map_file_path = os.path.join(pkg_path, 'map', 'mememan.yaml')
 
     # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params.yaml')
-    nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_test.yaml')
+    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_test.yaml')
+    nav2_param_file_path = os.path.join(pkg_path, 'config', 'basicbot_param.yaml')
     
     bt_file_path = os.path.join(pkg_path, 'config', 'navigate_w_replanning_and_recovery.xml')
 
