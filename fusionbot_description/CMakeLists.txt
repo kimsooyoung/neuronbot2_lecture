@@ -17,6 +17,10 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclpy REQUIRED)
+
 find_package(gazebo_ros_pkgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
@@ -27,6 +31,12 @@ find_package(robot_state_publisher REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+
+# Include Cpp "include" directory
+include_directories(include)
+
+# Install Python modules
+ament_python_install_package(${PROJECT_NAME})
 
 find_package(xacro REQUIRED)
 # Xacro files
@@ -56,9 +66,15 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+# Install Python executables
+install(PROGRAMS
+  scripts/spawn_robot.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 ## Install
 install(DIRECTORY launch meshes urdf rviz
-  DESTINATION  share/${PROJECT_NAME}/
+  DESTINATION  share/${PROJECT_NAME}
 )
 
 ament_package()

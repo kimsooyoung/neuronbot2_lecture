@@ -41,7 +41,8 @@ def generate_launch_description():
     description_pkg_path = os.path.join(get_package_share_directory('fusionbot_description'))
 
     # Robot State Publisher
-    urdf_file = os.path.join(description_pkg_path, 'urdf', 'fusionbot.urdf')
+    # urdf_file = os.path.join(description_pkg_path, 'urdf', 'fusionbot.urdf')
+    urdf_file = os.path.join(description_pkg_path, 'urdf', 'skidbot.urdf')
     doc = xacro.parse(open(urdf_file))
     xacro.process_doc(doc)
     robot_description = {'robot_description': doc.toxml()}
@@ -80,7 +81,7 @@ def generate_launch_description():
         # ),
         start_gazebo_server_cmd,
         start_gazebo_client_cmd,
-        joint_state_publisher,
-        robot_state_publisher,
+        # joint_state_publisher,
+        # robot_state_publisher,
         # spawn_entity,
     ])
