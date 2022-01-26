@@ -12,12 +12,22 @@ from launch_ros.substitutions import FindPackageShare
 
 import xacro
 
+from osrf_pycommon.terminal_color import ansi
+
 def generate_launch_description():
 
-    pkg_path = os.path.join(get_package_share_directory('fusionbot_description'))
+    description_pkg_path = os.path.join(get_package_share_directory('fusionbot_description'))
+    gazebo_model_path = os.path.join(description_pkg_path, 'models')
+
+    if 'GAZEBO_MODEL_PATH' in os.environ:
+        os.environ['GAZEBO_MODEL_PATH'] += ":" + gazebo_model_path
+    else:
+        os.environ['GAZEBO_MODEL_PATH'] = gazebo_model_path
+
+    print(ansi("yellow"), "If it's your 1st time to download Gazebo model on your computer, it may take few minutes to finish.", ansi("reset"))
 
     # Prepare Robot State Publisher Params
-    urdf_file = os.path.join(pkg_path, 'urdf', 'fusionbot.urdf')
+    urdf_file = os.path.join(description_pkg_path, 'urdf', 'fusionbot_description.urdf')
 
     # Robot State Publisher
     doc = xacro.parse(open(urdf_file))
@@ -40,7 +50,7 @@ def generate_launch_description():
         arguments=[urdf_file],
     )
 
-    rviz_config_file = os.path.join(pkg_path, 'rviz', 'description.rviz')
+    rviz_config_file = os.path.join(description_pkg_path, 'rviz', 'description.rviz')
 
     # Launch RViz
     rviz = Node(
