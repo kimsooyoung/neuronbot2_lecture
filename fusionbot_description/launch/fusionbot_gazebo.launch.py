@@ -80,14 +80,6 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        # ExecuteProcess(
-        #     cmd=['gzserver', '--verbose' , '-s', 'libgazebo_ros_init.so'],
-        #     output='screen'
-        # ),
-        # ExecuteProcess(
-        #     cmd=['gzclient'],
-        #     output='screen'
-        # ),
         start_gazebo_server_cmd,
         start_gazebo_client_cmd,
         # joint_state_publisher,
