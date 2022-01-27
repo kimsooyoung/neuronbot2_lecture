@@ -36,8 +36,12 @@ def generate_launch_description():
 
     # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params.yaml')
     # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_test.yaml')
-    nav2_param_file_path = os.path.join(pkg_path, 'config', 'basicbot_param.yaml')
-    
+    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'basicbot_param.yaml')
+    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_straight_planner.yaml')
+    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'sw_neuronbot_params.yaml')
+    nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params2.yaml')
+
+
     bt_file_path = os.path.join(pkg_path, 'config', 'navigate_w_replanning_and_recovery.xml')
 
     # Create the launch configuration variables

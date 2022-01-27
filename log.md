@@ -71,3 +71,69 @@ edison 아저씨 매개변수를 한단락씩 넣어보기
 
 1. amcl => no
 2. 
+
+# waypoint 
+
+```
+waypoint_follower:
+  ros__parameters:
+    loop_rate: 1
+    stop_on_failure: false
+```
+
+ros2 pkg create --build-type ament_cmake fusionbot_description
+ros2 pkg create --build-type ament_cmake fusionbot_gazebo
+
+여러 world
+straight line follower plugin
+nav2 bonus
+
+
+first_test
+
+1k3t7g547K
+
+ ros2 launch neuronbot2_path_planning bringup_launch.py open_rviz:=true
+ros2 launch neuronbot2_nav bringup_launch.py open_rviz:=true
+ros2 launch neuronbot2_gazebo neuronbot2_world.launch.py world_model:=mememan_world.model
+
+straight는 되는데, waypoint가 안되네...
+
+nav2 잘 도착하게 만들기
+
+git clone 
+checkout => foxy-devel
+[model_paths]
+filenames=/home/kimsooyoung/neuronbot2_eloquent_ws/src/neuronbot2/neuronbot2_lecture:/mnt/c/Users/tge13/Documents/Dev/aws-robomaker-small-warehouse-world/models
+
+cd ~/neuronbot2_eloquent_ws/src
+git clone https://github.com/SteveMacenski/nav2_rosdevday_2021.git
+
+ cbp nav2_rosdevday_2021 => ok
+
+cd ~/neuronbot2_eloquent_ws/src
+git clone https://github.com/neobotix/neo_simulation2.git
+cd ../
+cbp neo_simulation2 => ok!
+
+cd ~/neuronbot2_eloquent_ws/src
+git clone -b foxy-devel https://github.com/aws-robotics/aws-robomaker-small-warehouse-world.git
+cbp aws_robomaker_small_warehouse_world && roseloq
+
+launch 파일 수정 => path 2개
+
+spawn entity 안됨 ㅋㅋㅋ
+=> 심지어 neo_simlation2에서는 urdf를 사용중이다. 
+
+=> neuronbot2로 바꿔서 싹다 해보던지 해야 함!!
+=> nav2 최적화 문제로 귀결된다.
+
+nav2 잘됨 => 왜 그럴까?
+
+1. amcl 문단 통째로 가져옴 => ok
+2. min_vel_x => 이게 음수이니까 도착을 못함 => 0.0으로 해야 도착함
+3. max_vel_theta => 문제 없음 1.0에서 0.8로 유지
+4. acc_lim_x => 상관 있다. 0.5에서 2.5로 키워줌
+5. acc_lim_theta / decel_lim_theta => 큰 영향은 없지만 크면 좋을 듯 일단 기본값 +-0.8 유지
+	=> 0.8 유지한 채로 직선 경로로 수정하면?
+6. vy_samples => 5로 올려야 함
