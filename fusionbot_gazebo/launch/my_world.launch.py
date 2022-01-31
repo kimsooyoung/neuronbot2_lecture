@@ -45,15 +45,8 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py'))
     )
 
-    joint_state_publisher = Node(
-        package='joint_state_publisher',
-        node_executable='joint_state_publisher',
-        node_name='joint_state_publisher'
-    )
-
     # Robot State Publisher
     urdf_file = os.path.join(description_pkg_path, 'urdf', 'fusionbot_description.urdf')
-    # urdf_file = os.path.join(description_pkg_path, 'urdf', 'skidbot.urdf')
     doc = xacro.parse(open(urdf_file))
     xacro.process_doc(doc)
     robot_description = {'robot_description': doc.toxml()}
@@ -65,13 +58,11 @@ def generate_launch_description():
         node_executable='robot_state_publisher',
         node_name='robot_state_publisher',
         output='screen',
-        # parameters=[urdf_file]
         arguments=[urdf_file]
     )
 
     return LaunchDescription([
         start_gazebo_server_cmd,
         start_gazebo_client_cmd,
-        # joint_state_publisher,
         robot_state_publisher,
     ])
