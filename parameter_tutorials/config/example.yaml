@@ -1,0 +1,5 @@
+test_params_rclpy:
+  ros__parameters:
+    my_str: 'Yello horld'
+    my_int: 123
+    my_double_array: [3.14, 5.92, 6.53]

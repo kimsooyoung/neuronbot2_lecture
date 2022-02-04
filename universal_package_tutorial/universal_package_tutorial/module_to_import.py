@@ -1,0 +1,1 @@
+module_var = "var_from_module"
