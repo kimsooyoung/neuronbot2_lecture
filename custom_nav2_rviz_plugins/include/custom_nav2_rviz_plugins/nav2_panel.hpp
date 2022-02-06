@@ -17,7 +17,6 @@
 
 #include <QtWidgets>
 #include <QBasicTimer>
-#undef NO_ERROR
 
 #include <memory>
 #include <string>
@@ -85,9 +84,6 @@ private:
   // The (non-spinning) client node used to invoke the action client
   rclcpp::Node::SharedPtr client_node_;
 
-  // Timeout value when waiting for action servers to respnd
-  std::chrono::milliseconds server_timeout_;
-
   // A timer used to check on the completion status of the action
   QBasicTimer timer_;
 
@@ -103,15 +99,11 @@ private:
   WaypointFollowerGoalHandle::SharedPtr waypoint_follower_goal_handle_;
 
   // The client used to control the nav2 stack
-  nav2_lifecycle_manager::LifecycleManagerClient client_nav_;
-  nav2_lifecycle_manager::LifecycleManagerClient client_loc_;
+  nav2_lifecycle_manager::LifecycleManagerClient client_;
 
   QPushButton * start_reset_button_{nullptr};
   QPushButton * pause_resume_button_{nullptr};
   QPushButton * navigation_mode_button_{nullptr};
-
-  QLabel * navigation_status_indicator_{nullptr};
-  QLabel * localization_status_indicator_{nullptr};
 
   QStateMachine state_machine_;
   InitialThread * initial_thread_;
@@ -154,55 +146,29 @@ class InitialThread : public QThread
 public:
   using SystemStatus = nav2_lifecycle_manager::SystemStatus;
 
-  explicit InitialThread(
-    nav2_lifecycle_manager::LifecycleManagerClient & client_nav,
-    nav2_lifecycle_manager::LifecycleManagerClient & client_loc)
-  : client_nav_(client_nav), client_loc_(client_loc)
+  explicit InitialThread(nav2_lifecycle_manager::LifecycleManagerClient & client)
+  : client_(client)
   {}
 
   void run() override
   {
-    SystemStatus status_nav = SystemStatus::TIMEOUT;
-    SystemStatus status_loc = SystemStatus::TIMEOUT;
-
-    while (status_nav == SystemStatus::TIMEOUT) {
-      if (status_nav == SystemStatus::TIMEOUT) {
-        status_nav = client_nav_.is_active(std::chrono::seconds(1));
-      }
+    SystemStatus status = SystemStatus::TIMEOUT;
+    while (status == SystemStatus::TIMEOUT) {
+      status = client_.is_active(std::chrono::seconds(1));
     }
-
-    // try to communicate twice, might not actually be up if in SLAM mode
-    bool tried_loc_bringup_once = false;
-    while (status_loc == SystemStatus::TIMEOUT) {
-      status_loc = client_loc_.is_active(std::chrono::seconds(1));
-      if (tried_loc_bringup_once) {
-        break;
-      }
-      tried_loc_bringup_once = true;
-    }
-
-    if (status_nav == SystemStatus::ACTIVE) {
-      emit navigationActive();
+    if (status == SystemStatus::ACTIVE) {
+      emit activeSystem();
     } else {
-      emit navigationInactive();
-    }
-
-    if (status_loc == SystemStatus::ACTIVE) {
-      emit localizationActive();
-    } else {
-      emit localizationInactive();
+      emit inactiveSystem();
     }
   }
 
 signals:
-  void navigationActive();
-  void navigationInactive();
-  void localizationActive();
-  void localizationInactive();
+  void activeSystem();
+  void inactiveSystem();
 
 private:
-  nav2_lifecycle_manager::LifecycleManagerClient client_nav_;
-  nav2_lifecycle_manager::LifecycleManagerClient client_loc_;
+  nav2_lifecycle_manager::LifecycleManagerClient client_;
 };
 
 }  // namespace nav2_rviz_plugins
