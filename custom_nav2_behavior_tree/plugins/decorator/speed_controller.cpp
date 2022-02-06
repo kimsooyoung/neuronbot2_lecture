@@ -16,7 +16,7 @@
 #include <string>
 #include <memory>
 
-#include "nav2_util/geometry_utils.hpp"
+#include "custom_nav2_util/geometry_utils.hpp"
 
 #include "custom_nav2_behavior_tree/plugins/decorator/speed_controller.hpp"
 

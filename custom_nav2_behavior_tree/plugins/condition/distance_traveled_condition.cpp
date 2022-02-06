@@ -16,8 +16,8 @@
 #include <string>
 #include <memory>
 
-#include "nav2_util/robot_utils.hpp"
-#include "nav2_util/geometry_utils.hpp"
+#include "custom_nav2_util/robot_utils.hpp"
+#include "custom_nav2_util/geometry_utils.hpp"
 
 #include "custom_nav2_behavior_tree/plugins/condition/distance_traveled_condition.hpp"
 

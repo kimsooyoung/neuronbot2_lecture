@@ -42,7 +42,7 @@ public:
   {
     return providedBasicPorts(
       {
-        BT::OutputPort<custom_nav_msgs::msg::Path>("path", "Path created by ComputePathToPose node"),
+        BT::OutputPort<nav_msgs::msg::Path>("path", "Path created by ComputePathToPose node"),
         BT::InputPort<geometry_msgs::msg::PoseStamped>("goal", "Destination to plan to"),
         BT::InputPort<std::string>("planner_id", ""),
       });
