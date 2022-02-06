@@ -41,7 +41,7 @@ include_directories(
   include
 )
 
-set(executable_name bt_navigator)
+set(executable_name custom_bt_navigator)
 
 add_executable(${executable_name}
   src/main.cpp
