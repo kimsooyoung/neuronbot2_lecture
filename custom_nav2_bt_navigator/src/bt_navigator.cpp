@@ -30,36 +30,6 @@
 // #include "nav2_bt_navigator/ros_topic_logger.hpp"
 #include "custom_nav2_bt_navigator/ros_topic_logger.hpp"
 
-
-/**
- * @brief Get the L2 distance between 2 geometry_msgs::Poses
- * @param pos1 First pose
- * @param pos1 Second pose
- * @return double L2 distance
- */
-inline double euclidean_distance(
-  const geometry_msgs::msg::Pose & pos1,
-  const geometry_msgs::msg::Pose & pos2)
-{
-  double dx = pos1.position.x - pos2.position.x;
-  double dy = pos1.position.y - pos2.position.y;
-  double dz = pos1.position.z - pos2.position.z;
-  return std::sqrt(dx * dx + dy * dy + dz * dz);
-}
-
-/**
- * @brief Get the L2 distance between 2 geometry_msgs::PoseStamped
- * @param pos1 First pose
- * @param pos1 Second pose
- * @return double L2 distance
- */
-inline double euclidean_distance(
-  const geometry_msgs::msg::PoseStamped & pos1,
-  const geometry_msgs::msg::PoseStamped & pos2)
-{
-  return euclidean_distance(pos1.pose, pos2.pose);
-}
-
 namespace nav2_bt_navigator
 {
 
@@ -330,7 +300,7 @@ BtNavigator::navigateToPose()
       geometry_msgs::msg::PoseStamped goal_pose;
       blackboard_->get("goal", goal_pose);
 
-      feedback_msg->distance_remaining = euclidean_distance(
+      feedback_msg->distance_remaining = nav2_util::geometry_utils::euclidean_distance(
         feedback_msg->current_pose.pose, goal_pose.pose);
 
       int recovery_count = 0;
