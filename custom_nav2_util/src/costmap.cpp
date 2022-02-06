@@ -14,9 +14,9 @@
 
 #include <vector>
 #include <algorithm>
-#include "nav2_util/costmap.hpp"
+#include "custom_nav2_util/costmap.hpp"
 #include "tf2/LinearMath/Quaternion.h"
-#include "nav2_util/geometry_utils.hpp"
+#include "custom_nav2_util/geometry_utils.hpp"
 
 using std::vector;
 
@@ -105,8 +105,8 @@ void Costmap::set_test_costmap(const TestCostmap & testCostmapType)
   using_test_map_ = true;
 }
 
-nav2_msgs::msg::Costmap Costmap::get_costmap(
-  const nav2_msgs::msg::CostmapMetaData & /*specifications*/)
+custom_nav2_msgs::msg::Costmap Costmap::get_costmap(
+  const custom_nav2_msgs::msg::CostmapMetaData & /*specifications*/)
 {
   if (!map_provided_ && !using_test_map_) {
     throw std::runtime_error("Costmap has not been set.");
@@ -115,7 +115,7 @@ nav2_msgs::msg::Costmap Costmap::get_costmap(
   // TODO(orduno): build a costmap given the specifications
   //               for now using the specs of the static map
 
-  nav2_msgs::msg::Costmap costmap;
+  custom_nav2_msgs::msg::Costmap costmap;
 
   costmap.header.stamp = node_->now();
   costmap.header.frame_id = "map";

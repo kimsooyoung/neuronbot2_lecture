@@ -58,7 +58,7 @@ get_param_names_for_node(rclcpp::Node::SharedPtr node, std::string node_name)
   auto result_future = client->async_send_request(request);
 
   if (rclcpp::spin_until_future_complete(node, result_future, 1s) !=
-    rclcpp::FutureReturnCode::SUCCESS)
+    rclcpp::executor::FutureReturnCode::SUCCESS)
   {
     throw std::runtime_error(std::string("service call to \"") + node_name + "\" failed");
   }
@@ -90,7 +90,7 @@ get_param_values_for_node(
   auto result_future = client->async_send_request(request);
 
   if (rclcpp::spin_until_future_complete(node, result_future, 1s) !=
-    rclcpp::FutureReturnCode::SUCCESS)
+    rclcpp::executor::FutureReturnCode::SUCCESS)
   {
     throw std::runtime_error(std::string("service call to \"") + node_name + "\" failed");
   }
@@ -122,7 +122,7 @@ get_param_descriptors_for_node(
   auto result_future = client->async_send_request(request);
 
   if (rclcpp::spin_until_future_complete(node, result_future, 1s) !=
-    rclcpp::FutureReturnCode::SUCCESS)
+    rclcpp::executor::FutureReturnCode::SUCCESS)
   {
     throw std::runtime_error(std::string("service call to \"") + node_name + "\" failed");
   }

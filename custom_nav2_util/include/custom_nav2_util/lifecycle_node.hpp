@@ -19,7 +19,7 @@
 #include <string>
 #include <thread>
 
-#include "nav2_util/node_thread.hpp"
+#include "custom_nav2_util/node_thread.hpp"
 #include "rclcpp_lifecycle/lifecycle_node.hpp"
 #include "rclcpp/rclcpp.hpp"
 

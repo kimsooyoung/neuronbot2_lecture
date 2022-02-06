@@ -185,7 +185,7 @@ public:
     if (should_cancel_goal()) {
       auto future_cancel = action_client_->async_cancel_goal(goal_handle_);
       if (rclcpp::spin_until_future_complete(node_, future_cancel, server_timeout_) !=
-        rclcpp::FutureReturnCode::SUCCESS)
+        rclcpp::executor::FutureReturnCode::SUCCESS)
       {
         RCLCPP_ERROR(
           node_->get_logger(),
@@ -231,7 +231,7 @@ protected:
     auto future_goal_handle = action_client_->async_send_goal(goal_, send_goal_options);
 
     if (rclcpp::spin_until_future_complete(node_, future_goal_handle, server_timeout_) !=
-      rclcpp::FutureReturnCode::SUCCESS)
+      rclcpp::executor::FutureReturnCode::SUCCESS)
     {
       throw std::runtime_error("send_goal failed");
     }

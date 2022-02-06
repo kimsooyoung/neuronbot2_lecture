@@ -105,7 +105,7 @@ public:
     rc = rclcpp::spin_until_future_complete(
       node_,
       future_result, server_timeout_);
-    if (rc == rclcpp::FutureReturnCode::SUCCESS) {
+    if (rc == rclcpp::executor::FutureReturnCode::SUCCESS) {
       return BT::NodeStatus::SUCCESS;
     } else if (rc == rclcpp::FutureReturnCode::TIMEOUT) {
       RCLCPP_WARN(

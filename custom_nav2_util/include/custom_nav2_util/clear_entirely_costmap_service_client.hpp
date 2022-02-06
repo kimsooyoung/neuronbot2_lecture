@@ -16,9 +16,9 @@
 #define NAV2_UTIL__CLEAR_ENTIRELY_COSTMAP_SERVICE_CLIENT_HPP_
 
 #include <string>
-#include "nav2_util/service_client.hpp"
+#include "custom_nav2_util/service_client.hpp"
 #include "std_srvs/srv/empty.hpp"
-#include "nav2_msgs/srv/clear_entire_costmap.hpp"
+#include "custom_nav2_msgs/srv/clear_entire_costmap.hpp"
 
 namespace nav2_util
 {

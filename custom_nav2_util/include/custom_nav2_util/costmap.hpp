@@ -19,8 +19,8 @@
 #include <cstdint>
 
 #include "rclcpp/rclcpp.hpp"
-#include "nav2_msgs/msg/costmap.hpp"
-#include "nav2_msgs/msg/costmap_meta_data.hpp"
+#include "custom_nav2_msgs/msg/costmap.hpp"
+#include "custom_nav2_msgs/msg/costmap_meta_data.hpp"
 #include "nav_msgs/msg/occupancy_grid.hpp"
 
 namespace nav2_util
@@ -53,9 +53,9 @@ public:
 
   void set_test_costmap(const TestCostmap & testCostmapType);
 
-  nav2_msgs::msg::Costmap get_costmap(const nav2_msgs::msg::CostmapMetaData & specifications);
+  custom_nav2_msgs::msg::Costmap get_costmap(const custom_nav2_msgs::msg::CostmapMetaData & specifications);
 
-  nav2_msgs::msg::CostmapMetaData get_properties() {return costmap_properties_;}
+  custom_nav2_msgs::msg::CostmapMetaData get_properties() {return costmap_properties_;}
 
   bool is_free(const unsigned int x_coordinate, const unsigned int y_coordinate) const;
   bool is_free(const unsigned int index) const;
@@ -76,7 +76,7 @@ private:
   rclcpp::Node * node_;
 
   // TODO(orduno): For now, only holding costs from static map
-  nav2_msgs::msg::CostmapMetaData costmap_properties_;
+  custom_nav2_msgs::msg::CostmapMetaData costmap_properties_;
   std::vector<uint8_t> costs_;
 
   // Static layer parameters

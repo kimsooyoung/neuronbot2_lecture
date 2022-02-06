@@ -14,7 +14,7 @@
 
 #include <memory>
 
-#include "nav2_util/node_thread.hpp"
+#include "custom_nav2_util/node_thread.hpp"
 
 namespace nav2_util
 {

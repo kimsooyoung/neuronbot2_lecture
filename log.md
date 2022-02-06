@@ -137,3 +137,9 @@ nav2 잘됨 => 왜 그럴까?
 5. acc_lim_theta / decel_lim_theta => 큰 영향은 없지만 크면 좋을 듯 일단 기본값 +-0.8 유지
 	=> 0.8 유지한 채로 직선 경로로 수정하면?
 6. vy_samples => 5로 올려야 함
+
+
+nav2_utils foxy => eloquent
+```
+This issue still exist when compile the example code from https://docs.ros.org/en/foxy/Tutorials/Writing-A-Simple-Cpp-Service-And-Client.html using eloquent. It can be solved by adding namespace. That means replace the rclcpp::executor::FutureReturnCode::SUCCESS with rclcpp::executor::FutureReturnCode::SUCCESS.
+```

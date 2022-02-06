@@ -13,6 +13,7 @@ add_library(${library_name} SHARED
 ament_target_dependencies(${library_name}
   rclcpp
   nav2_msgs
+  custom_nav2_msgs
   tf2
   tf2_ros
   nav_msgs
