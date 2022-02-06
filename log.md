@@ -193,3 +193,9 @@ custom_bt_navigator 안에 있는 파일로 대체, custom launch file 생성
 Unknown CMake command "ament_export_targets".
 Navigate to the CMakeLists.txt line 144 and change ament_export_targets to ament_export_interfaces.
 ```
+
+# rviz pluigin
+
+```
+[rviz2-10] [ERROR] [rviz2]: PluginlibFactory: The plugin for class 'custom_nav2_rviz_plugins/Navigation 2' failed to load. Error: According to the loaded plugin descriptions the class custom_nav2_rviz_plugins/Navigation 2 with base class type rviz_common::Panel does not exist. Declared types are  nav2_rviz_plugins/Navigation 2
+```
