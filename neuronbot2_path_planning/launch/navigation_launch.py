@@ -123,10 +123,14 @@ def generate_launch_description():
             remappings=remappings),
 
         Node(
-            package='nav2_bt_navigator',
-            # package='custom_nav2_bt_navigator',
-            node_executable='bt_navigator',
-            node_name='bt_navigator',
+            # package='nav2_bt_navigator',
+            # node_executable='bt_navigator',
+            # node_name='bt_navigator',
+            
+            package='custom_nav2_bt_navigator',
+            node_executable='custom_bt_navigator',
+            node_name='custom_bt_navigator',
+
             output='screen',
             parameters=[configured_params],
             remappings=remappings),
