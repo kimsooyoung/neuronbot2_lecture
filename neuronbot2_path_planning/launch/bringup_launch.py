@@ -27,22 +27,21 @@ from launch_ros.actions import PushRosNamespace
 
 def generate_launch_description():
     # Get the launch directory
-    pkg_path = get_package_share_directory('neuronbot2_path_planning')
+    my_nav_dir = get_package_share_directory('neuronbot2_path_planning')
+    my_launch_dir = os.path.join(my_nav_dir, 'launch')
+    my_param_dir = os.path.join(my_nav_dir, 'config')
 
-    localization_launch_path = os.path.join(pkg_path, 'launch', 'localization_launch.py')
-    navigation_launch_path = os.path.join(pkg_path, 'launch', 'navigation_launch.py')
-    rviz_view_launch_path = os.path.join(pkg_path, 'launch', 'rviz_view_launch.py')
-    map_file_path = os.path.join(pkg_path, 'map', 'mememan.yaml')
+    # my_param_file = 'neuronbot_params.yaml'
+    # my_param_file = 'neuronbot_params_test.yaml'
+    # my_param_file = 'basicbot_param.yaml'
+    # my_param_file = 'neuronbot_straight_planner.yaml'
+    # my_param_file = 'sw_neuronbot_params.yaml'
+    # my_param_file = 'neuronbot_params2.yaml'
 
-    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params.yaml')
-    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_test.yaml')
-    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'basicbot_param.yaml')
-    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_straight_planner.yaml')
-    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'sw_neuronbot_params.yaml')
-    nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params2.yaml')
-
-
-    bt_file_path = os.path.join(pkg_path, 'config', 'navigate_w_replanning_and_recovery.xml')
+    my_param_file = 'neuronbot_params.yaml'
+    my_bt_file = 'navigate_w_replanning_and_recovery.xml'
+    my_map_dir = os.path.join(my_nav_dir, 'map')
+    my_map_file = 'mememan.yaml'
 
     # Create the launch configuration variables
     namespace = LaunchConfiguration('namespace')
@@ -67,24 +66,24 @@ def generate_launch_description():
         default_value='false',
         description='Whether to apply a namespace to the navigation stack')
 
+    declare_map_yaml_cmd = DeclareLaunchArgument(
+        'map',
+        default_value=os.path.join(my_map_dir, my_map_file),
+        description='Full path to map yaml file to load')
+
     declare_use_sim_time_cmd = DeclareLaunchArgument(
         'use_sim_time',
         default_value='false',
         description='Use simulation (Gazebo) clock if true')
 
-    declare_map_yaml_cmd = DeclareLaunchArgument(
-        'map',
-        default_value=map_file_path,
-        description='Full path to map yaml file to load')
-
     declare_params_file_cmd = DeclareLaunchArgument(
         'params_file',
-        default_value=nav2_param_file_path,
+        default_value=os.path.join(my_param_dir, my_param_file),
         description='Full path to the ROS2 parameters file to use for all launched nodes')
 
     declare_bt_xml_cmd = DeclareLaunchArgument(
         'bt_xml_file',
-        default_value=bt_file_path,
+        default_value=os.path.join(my_param_dir, my_bt_file),
         description='Full path to the behavior tree xml file to use')
 
     declare_autostart_cmd = DeclareLaunchArgument(
@@ -101,42 +100,33 @@ def generate_launch_description():
     bringup_cmd_group = GroupAction([
         PushRosNamespace(
             condition=IfCondition(use_namespace),
-            namespace=namespace
-        ),
+            namespace=namespace),
 
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(localization_launch_path),
-            launch_arguments={
-                'namespace': namespace,
-                'map': map_yaml_file,
-                'use_sim_time': use_sim_time,
-                'autostart': autostart,
-                'params_file': params_file,
-                'use_lifecycle_mgr': 'false'
-            }.items()
-        ),
+            PythonLaunchDescriptionSource(os.path.join(my_launch_dir, 'localization_launch.py')),
+            launch_arguments={'namespace': namespace,
+                              'map': map_yaml_file,
+                              'use_sim_time': use_sim_time,
+                              'autostart': autostart,
+                              'params_file': params_file,
+                              'use_lifecycle_mgr': 'false'}.items()),
 
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(navigation_launch_path),
-            launch_arguments={
-                'namespace': namespace,
-                'use_sim_time': use_sim_time,
-                'autostart': autostart,
-                'params_file': params_file,
-                'bt_xml_file': bt_xml_file,
-                'use_lifecycle_mgr': 'false',
-                'map_subscribe_transient_local': 'true'
-            }.items()
-        ),
+            PythonLaunchDescriptionSource(os.path.join(my_launch_dir, 'navigation_launch.py')),
+            launch_arguments={'namespace': namespace,
+                              'use_sim_time': use_sim_time,
+                              'autostart': autostart,
+                              'params_file': params_file,
+                              'bt_xml_file': bt_xml_file,
+                              'use_lifecycle_mgr': 'false',
+                              'map_subscribe_transient_local': 'true'}.items()),
                               
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(rviz_view_launch_path),
-            launch_arguments={
-                'use_sim_time': use_sim_time,
-                'open_rviz': open_rviz,
-                'map_subscribe_transient_local': 'true'
-            }.items()
-        ),
+            PythonLaunchDescriptionSource(os.path.join(my_launch_dir, 'rviz_view_launch.py')),
+            launch_arguments={'use_sim_time': use_sim_time,
+                              'open_rviz': open_rviz,
+                              'map_subscribe_transient_local': 'true'}.items()),
+                             
     ])
 
     # Create the launch description and populate
