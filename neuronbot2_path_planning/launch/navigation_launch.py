@@ -129,7 +129,7 @@ def generate_launch_description():
             
             package='custom_nav2_bt_navigator',
             node_executable='custom_bt_navigator',
-            node_name='custom_bt_navigator',
+            node_name='bt_navigator',
 
             output='screen',
             parameters=[configured_params],

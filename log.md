@@ -141,5 +141,55 @@ nav2 잘됨 => 왜 그럴까?
 
 nav2_utils foxy => eloquent
 ```
-This issue still exist when compile the example code from https://docs.ros.org/en/foxy/Tutorials/Writing-A-Simple-Cpp-Service-And-Client.html using eloquent. It can be solved by adding namespace. That means replace the rclcpp::executor::FutureReturnCode::SUCCESS with rclcpp::executor::FutureReturnCode::SUCCESS.
+This issue still exist when compile the example code from https://docs.ros.org/en/foxy/Tutorials/Writing-A-Simple-Cpp-Service-And-Client.html using eloquent. It can be solved by adding namespace. That means replace the rclcpp::FutureReturnCode::SUCCESS with rclcpp::executor::FutureReturnCode::SUCCESS.
+```
+
+# custom nav2 pkgs
+
+종속성
+
+```
+nav2_util => custom_nav2_behavior_tree => custom_nav2_bt_navigator
+```
+
+무조건 nav2_util  => custom_nav2_util 로 바꾸면 안된다. 
+namespace 이름 자체가 nav2_util 이기 때문에 일부는 유지해줘야 함
+
+
+custom_nav2_util => geometry_utils.hpp
+```
+namespace nav2_util
+{
+namespace geometry_utils
+{
+```
+이렇게
+
+에러
+```
+CMake Warning at CMakeLists.txt:53 (add_library):
+  Cannot generate a safe runtime search path for target
+  custom_bt_navigator_core because there is a cycle in the constraint graph:
+```
+nav2_msgs, custom_nav2_msgs 이렇게 두개 있어서 그럼
+
+```
+[bt_navigator-7] [ERROR] [bt_navigator]: Couldn't open input XML file:
+```
+
+custom_bt_navigator 안에 있는 파일로 대체, custom launch file 생성
+
+```
+[custom_bt_navigator-7] [ERROR] [bt_navigator_rclcpp_node.rclcpp_action]: Error in destruction of rcl action client handle: goal client is invalid, at /tmp/binarydeb/ros-eloquent-rcl-action-0.8.5/src/rcl_action/action_client.c:448
+[custom_bt_navigator-7] [ERROR] []: Caught exception in callback for transition 10
+[custom_bt_navigator-7] [ERROR] []: Original error: Cannot load library
+[custom_bt_navigator-7] [WARN] []: Error occurred while doing error handling.
+[custom_bt_navigator-7] [FATAL] [bt_navigator]: Lifecycle node entered error state
+```
+
+# nav2 rviz plugin
+
+```
+Unknown CMake command "ament_export_targets".
+Navigate to the CMakeLists.txt line 144 and change ament_export_targets to ament_export_interfaces.
 ```

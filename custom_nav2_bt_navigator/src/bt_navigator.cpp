@@ -100,7 +100,7 @@ BtNavigator::on_configure(const rclcpp_lifecycle::State & /*state*/)
 
   // self_client_ = rclcpp_action::create_client<nav2_msgs::action::NavigateToPose>(
   self_client_ = rclcpp_action::create_client<custom_nav2_msgs::action::NavigateToPose>(
-    client_node_, "navigate_to_pose");
+    client_node_, "NavigateToPose");
 
   tf_ = std::make_shared<tf2_ros::Buffer>(get_clock());
   auto timer_interface = std::make_shared<tf2_ros::CreateTimerROS>(
@@ -119,7 +119,7 @@ BtNavigator::on_configure(const rclcpp_lifecycle::State & /*state*/)
     get_node_clock_interface(),
     get_node_logging_interface(),
     get_node_waitables_interface(),
-    "navigate_to_pose", std::bind(&BtNavigator::navigateToPose, this), false);
+    "NavigateToPose", std::bind(&BtNavigator::navigateToPose, this), false);
 
   // Get the libraries to pull plugins from
   plugin_lib_names_ = get_parameter("plugin_lib_names").as_string_array();
@@ -239,6 +239,13 @@ BtNavigator::on_cleanup(const rclcpp_lifecycle::State & /*state*/)
   bt_.reset();
 
   RCLCPP_INFO(get_logger(), "Completed Cleaning up");
+  return nav2_util::CallbackReturn::SUCCESS;
+}
+
+nav2_util::CallbackReturn
+BtNavigator::on_error(const rclcpp_lifecycle::State & /*state*/)
+{
+  RCLCPP_FATAL(get_logger(), "Lifecycle node entered error state");
   return nav2_util::CallbackReturn::SUCCESS;
 }
 

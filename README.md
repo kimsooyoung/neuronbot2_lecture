@@ -67,3 +67,7 @@ CMake Warning at CMakeLists.txt:53 (add_library):
   custom_bt_navigator_core because there is a cycle in the constraint graph:
 ```
 nav2_msgs, custom_nav2_msgs 이렇게 두개 있어서 그럼
+
+```
+[bt_navigator-7] [ERROR] [bt_navigator]: Couldn't open input XML file:
+```
