@@ -60,6 +60,9 @@ class OdomUtilNode(Node):
 
         self._timer = self.create_timer(0.1, self.timer_callback)
         self._odom_msg = Odometry()
+        
+        self._odom_msg.child_frame_id = 'base_footprint'
+        self._odom_msg.header.frame_id = 'odom'
 
     def timer_callback(self):
 
