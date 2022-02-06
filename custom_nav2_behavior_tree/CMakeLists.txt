@@ -24,7 +24,7 @@ find_package(rclcpp_lifecycle REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(nav2_msgs REQUIRED)
+# find_package(nav2_msgs REQUIRED)
 find_package(custom_nav2_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(behaviortree_cpp_v3 REQUIRED)
@@ -51,7 +51,7 @@ set(dependencies
   rclcpp_lifecycle
   geometry_msgs
   sensor_msgs
-  nav2_msgs
+  # nav2_msgs
   custom_nav2_msgs
   nav_msgs
   behaviortree_cpp_v3

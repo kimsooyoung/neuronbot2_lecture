@@ -18,7 +18,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(nav2_common REQUIRED)
-find_package(nav2_msgs REQUIRED)
+# find_package(nav2_msgs REQUIRED)
 find_package(custom_nav2_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2 REQUIRED)
@@ -37,7 +37,7 @@ find_package(tf2_geometry_msgs REQUIRED)
 
 
 set(dependencies
-    nav2_msgs
+    # nav2_msgs
     custom_nav2_msgs
     tf2_ros
     tf2

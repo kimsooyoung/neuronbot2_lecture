@@ -24,8 +24,8 @@
 #include <set>
 #include <exception>
 
-#include "nav2_util/geometry_utils.hpp"
-#include "nav2_util/robot_utils.hpp"
+#include "custom_nav2_util/geometry_utils.hpp"
+#include "custom_nav2_util/robot_utils.hpp"
 #include "custom_nav2_behavior_tree/bt_conversions.hpp"
 // #include "nav2_bt_navigator/ros_topic_logger.hpp"
 #include "custom_nav2_bt_navigator/ros_topic_logger.hpp"
@@ -192,7 +192,7 @@ BtNavigator::loadBehaviorTree(const std::string & bt_xml_filename)
   }
 
   // if a new tree is created, than the ZMQ Publisher must be destroyed
-  // bt_->resetGrootMonitor();
+  bt_->resetGrootMonitor();
 
   // Read the input BT XML from the specified file into a string
   std::ifstream xml_file(bt_xml_filename);
@@ -207,17 +207,17 @@ BtNavigator::loadBehaviorTree(const std::string & bt_xml_filename)
     std::istreambuf_iterator<char>());
 
   // Create the Behavior Tree from the XML input
-  tree_ = bt_->buildTreeFromText(xml_string, blackboard_);
+  tree_ = bt_->createTreeFromText(xml_string, blackboard_);
   current_bt_xml_filename_ = bt_xml_filename;
 
   // get parameter for monitoring with Groot via ZMQ Publisher
   if (get_parameter("enable_groot_monitoring").as_bool()) {
-    // uint16_t zmq_publisher_port = get_parameter("groot_zmq_publisher_port").as_int();
-    // uint16_t zmq_server_port = get_parameter("groot_zmq_server_port").as_int();
+    uint16_t zmq_publisher_port = get_parameter("groot_zmq_publisher_port").as_int();
+    uint16_t zmq_server_port = get_parameter("groot_zmq_server_port").as_int();
     // optionally add max_msg_per_second = 25 (default) here
     try {
-      std::cout << "There's no Groot Compatilibility in this version" << std::endl;
-      // bt_->addGrootMonitoring(&tree_, zmq_publisher_port, zmq_server_port);
+      // std::cout << "There's no Groot Compatilibility in this version" << std::endl;
+      bt_->addGrootMonitoring(&tree_, zmq_publisher_port, zmq_server_port);
     } catch (const std::logic_error & e) {
       RCLCPP_ERROR(get_logger(), "ZMQ already enabled, Error: %s", e.what());
     }
@@ -265,7 +265,7 @@ BtNavigator::on_cleanup(const rclcpp_lifecycle::State & /*state*/)
   current_bt_xml_filename_.clear();
   blackboard_.reset();
   bt_->haltAllActions(tree_.rootNode());
-  // bt_->resetGrootMonitor();
+  bt_->resetGrootMonitor();
   bt_.reset();
 
   RCLCPP_INFO(get_logger(), "Completed Cleaning up");

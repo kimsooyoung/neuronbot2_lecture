@@ -21,7 +21,8 @@
 // #include "nav2_msgs/msg/behavior_tree_log.hpp"
 // #include "nav2_msgs/msg/behavior_tree_status_change.h"
 #include "custom_nav2_msgs/msg/behavior_tree_log.hpp"
-#include "nav2_msgs/msg/behavior_tree_status_change.h"
+// #include "nav2_msgs/msg/behavior_tree_status_change.h"
+#include "custom_nav2_msgs/msg/behavior_tree_status_change.h"
 
 namespace nav2_bt_navigator
 {
