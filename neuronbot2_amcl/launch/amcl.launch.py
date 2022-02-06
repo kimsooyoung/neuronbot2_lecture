@@ -12,7 +12,10 @@ from nav2_common.launch import RewrittenYaml
 def generate_launch_description():
     # Get the launch directory
     pkg_path = get_package_share_directory('neuronbot2_amcl')
-    param_file_path = os.path.join(pkg_path, 'param', 'amcl.yaml')
+    # param_file_path = os.path.join(pkg_path, 'param', 'amcl.yaml')
+    # param_file_path = os.path.join(pkg_path, 'param', 'amcl_change_particle.yaml')
+    param_file_path = os.path.join(pkg_path, 'param', 'amcl_laser_range.yaml')
+    
     map_file_path = os.path.join(pkg_path, 'map', 'mememan.yaml')
 
     namespace = LaunchConfiguration('namespace')
