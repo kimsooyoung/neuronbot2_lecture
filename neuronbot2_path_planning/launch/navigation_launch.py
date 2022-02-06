@@ -124,6 +124,7 @@ def generate_launch_description():
 
         Node(
             package='nav2_bt_navigator',
+            # package='custom_nav2_bt_navigator',
             node_executable='bt_navigator',
             node_name='bt_navigator',
             output='screen',
