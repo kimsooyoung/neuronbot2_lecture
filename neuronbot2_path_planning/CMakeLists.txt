@@ -23,6 +23,7 @@ find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(custom_nav2_msgs REQUIRED)
 find_package(custom_nav2_bt_navigator REQUIRED)
+find_package(custom_nav2_rviz_plugins REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)

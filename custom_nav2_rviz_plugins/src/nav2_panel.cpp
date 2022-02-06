@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "nav2_rviz_plugins/nav2_panel.hpp"
+#include "custom_nav2_rviz_plugins/nav2_panel.hpp"
 
 #include <QtConcurrent/QtConcurrent>
 #include <QVBoxLayout>
@@ -20,7 +20,7 @@
 #include <memory>
 #include <vector>
 
-#include "nav2_rviz_plugins/goal_common.hpp"
+#include "custom_nav2_rviz_plugins/goal_common.hpp"
 #include "rviz_common/display_context.hpp"
 
 using namespace std::chrono_literals;
@@ -225,13 +225,13 @@ Nav2Panel::Nav2Panel(QWidget * parent)
   client_node_ = std::make_shared<rclcpp::Node>("_", options);
 
   navigation_action_client_ =
-    rclcpp_action::create_client<nav2_msgs::action::NavigateToPose>(client_node_,
+    rclcpp_action::create_client<custom_nav2_msgs::action::NavigateToPose>(client_node_,
       "NavigateToPose");
   waypoint_follower_action_client_ =
-    rclcpp_action::create_client<nav2_msgs::action::FollowWaypoints>(client_node_,
+    rclcpp_action::create_client<custom_nav2_msgs::action::FollowWaypoints>(client_node_,
       "FollowWaypoints");
-  navigation_goal_ = nav2_msgs::action::NavigateToPose::Goal();
-  waypoint_follower_goal_ = nav2_msgs::action::FollowWaypoints::Goal();
+  navigation_goal_ = custom_nav2_msgs::action::NavigateToPose::Goal();
+  waypoint_follower_goal_ = custom_nav2_msgs::action::FollowWaypoints::Goal();
 
   wp_navigation_markers_pub_ =
     client_node_->create_publisher<visualization_msgs::msg::MarkerArray>("waypoints",
@@ -432,7 +432,7 @@ Nav2Panel::startWaypointFollowing(std::vector<geometry_msgs::msg::PoseStamped> p
 
   // Enable result awareness by providing an empty lambda function
   auto send_goal_options =
-    rclcpp_action::Client<nav2_msgs::action::FollowWaypoints>::SendGoalOptions();
+    rclcpp_action::Client<custom_nav2_msgs::action::FollowWaypoints>::SendGoalOptions();
   send_goal_options.result_callback = [](auto) {};
 
   auto future_goal_handle =
@@ -471,7 +471,7 @@ Nav2Panel::startNavigation(geometry_msgs::msg::PoseStamped pose)
 
   // Enable result awareness by providing an empty lambda function
   auto send_goal_options =
-    rclcpp_action::Client<nav2_msgs::action::NavigateToPose>::SendGoalOptions();
+    rclcpp_action::Client<custom_nav2_msgs::action::NavigateToPose>::SendGoalOptions();
   send_goal_options.result_callback = [](auto) {};
 
   auto future_goal_handle =

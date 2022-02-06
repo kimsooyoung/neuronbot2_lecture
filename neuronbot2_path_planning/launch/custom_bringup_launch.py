@@ -32,7 +32,7 @@ def generate_launch_description():
     my_launch_dir = os.path.join(my_nav_dir, 'launch')
     my_param_dir = os.path.join(my_nav_dir, 'config')
 
-    my_param_file = 'neuronbot_params.yaml'
+    my_param_file = 'custom_navigator_params.yaml'
     my_bt_file =  os.path.join(bt_nav_dir, 'behavior_trees', 'navigate_w_replanning_and_recovery.xml')
     my_map_dir = os.path.join(my_nav_dir, 'map')
     my_map_file = 'mememan.yaml'
