@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #include <string>
-#include "nav2_behavior_tree/plugins/action/reinitialize_global_localization_service.hpp"
+#include "custom_nav2_behavior_tree/plugins/action/reinitialize_global_localization_service.hpp"
 
 namespace nav2_behavior_tree
 {

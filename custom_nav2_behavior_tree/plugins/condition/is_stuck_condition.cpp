@@ -15,7 +15,7 @@
 #include <string>
 #include <chrono>
 
-#include "nav2_behavior_tree/plugins/condition/is_stuck_condition.hpp"
+#include "custom_nav2_behavior_tree/plugins/condition/is_stuck_condition.hpp"
 
 using namespace std::chrono_literals; // NOLINT
 

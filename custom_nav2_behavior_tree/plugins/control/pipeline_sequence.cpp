@@ -16,7 +16,7 @@
 #include <sstream>
 #include <string>
 
-#include "nav2_behavior_tree/plugins/control/pipeline_sequence.hpp"
+#include "custom_nav2_behavior_tree/plugins/control/pipeline_sequence.hpp"
 
 namespace nav2_behavior_tree
 {

@@ -17,14 +17,16 @@
 
 #include <string>
 
-#include "nav2_msgs/action/compute_path_to_pose.hpp"
+// #include "nav2_msgs/action/compute_path_to_pose.hpp"
+#include "custom_nav2_msgs/action/compute_path_to_pose.hpp"
+
 #include "nav_msgs/msg/path.h"
-#include "nav2_behavior_tree/bt_action_node.hpp"
+#include "custom_nav2_behavior_tree/bt_action_node.hpp"
 
 namespace nav2_behavior_tree
 {
 
-class ComputePathToPoseAction : public BtActionNode<nav2_msgs::action::ComputePathToPose>
+class ComputePathToPoseAction : public BtActionNode<custom_nav2_msgs::action::ComputePathToPose>
 {
 public:
   ComputePathToPoseAction(
@@ -40,7 +42,7 @@ public:
   {
     return providedBasicPorts(
       {
-        BT::OutputPort<nav_msgs::msg::Path>("path", "Path created by ComputePathToPose node"),
+        BT::OutputPort<custom_nav_msgs::msg::Path>("path", "Path created by ComputePathToPose node"),
         BT::InputPort<geometry_msgs::msg::PoseStamped>("goal", "Destination to plan to"),
         BT::InputPort<std::string>("planner_id", ""),
       });

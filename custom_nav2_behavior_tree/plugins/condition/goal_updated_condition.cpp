@@ -14,7 +14,7 @@
 
 #include <string>
 
-#include "nav2_behavior_tree/plugins/condition/goal_updated_condition.hpp"
+#include "custom_nav2_behavior_tree/plugins/condition/goal_updated_condition.hpp"
 
 namespace nav2_behavior_tree
 {

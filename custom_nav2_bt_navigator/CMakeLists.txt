@@ -24,6 +24,7 @@ find_package(rclcpp_lifecycle REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav2_behavior_tree REQUIRED)
+find_package(custom_nav2_behavior_tree REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(nav2_msgs REQUIRED)
 find_package(custom_nav2_msgs REQUIRED)
@@ -61,6 +62,7 @@ set(dependencies
   std_msgs
   geometry_msgs
   nav2_behavior_tree
+  custom_nav2_behavior_tree
   nav_msgs
   nav2_msgs
   custom_nav2_msgs

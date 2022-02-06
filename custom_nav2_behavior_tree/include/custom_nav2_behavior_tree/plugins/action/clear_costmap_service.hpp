@@ -17,13 +17,15 @@
 
 #include <string>
 
-#include "nav2_behavior_tree/bt_service_node.hpp"
-#include "nav2_msgs/srv/clear_entire_costmap.hpp"
+#include "custom_nav2_behavior_tree/bt_service_node.hpp"
+// #include "nav2_msgs/srv/clear_entire_costmap.hpp"
+#include "custom_nav2_msgs/srv/clear_entire_costmap.hpp"
+
 
 namespace nav2_behavior_tree
 {
 
-class ClearEntireCostmapService : public BtServiceNode<nav2_msgs::srv::ClearEntireCostmap>
+class ClearEntireCostmapService : public BtServiceNode<custom_nav2_msgs::srv::ClearEntireCostmap>
 {
 public:
   ClearEntireCostmapService(

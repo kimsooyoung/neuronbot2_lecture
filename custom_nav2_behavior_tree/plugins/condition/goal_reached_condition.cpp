@@ -19,7 +19,7 @@
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "nav2_util/node_utils.hpp"
 
-#include "nav2_behavior_tree/plugins/condition/goal_reached_condition.hpp"
+#include "custom_nav2_behavior_tree/plugins/condition/goal_reached_condition.hpp"
 
 namespace nav2_behavior_tree
 {

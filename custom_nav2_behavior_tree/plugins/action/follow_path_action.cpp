@@ -15,7 +15,7 @@
 #include <memory>
 #include <string>
 
-#include "nav2_behavior_tree/plugins/action/follow_path_action.hpp"
+#include "custom_nav2_behavior_tree/plugins/action/follow_path_action.hpp"
 
 namespace nav2_behavior_tree
 {
@@ -24,7 +24,7 @@ FollowPathAction::FollowPathAction(
   const std::string & xml_tag_name,
   const std::string & action_name,
   const BT::NodeConfiguration & conf)
-: BtActionNode<nav2_msgs::action::FollowPath>(xml_tag_name, action_name, conf)
+: BtActionNode<custom_nav2_msgs::action::FollowPath>(xml_tag_name, action_name, conf)
 {
   config().blackboard->set("path_updated", false);
 }

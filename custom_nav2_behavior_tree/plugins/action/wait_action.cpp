@@ -19,20 +19,21 @@
 #include <memory>
 #include <cmath>
 
-#include "nav2_behavior_tree/bt_action_node.hpp"
-#include "nav2_msgs/action/wait.hpp"
+#include "custom_nav2_behavior_tree/bt_action_node.hpp"
+// #include "nav2_msgs/action/wait.hpp"
+#include "custom_nav2_msgs/action/wait.hpp"
 
 namespace nav2_behavior_tree
 {
 
-class WaitAction : public BtActionNode<nav2_msgs::action::Wait>
+class WaitAction : public BtActionNode<custom_nav2_msgs::action::Wait>
 {
 public:
   WaitAction(
     const std::string & xml_tag_name,
     const std::string & action_name,
     const BT::NodeConfiguration & conf)
-  : BtActionNode<nav2_msgs::action::Wait>(xml_tag_name, action_name, conf)
+  : BtActionNode<custom_nav2_msgs::action::Wait>(xml_tag_name, action_name, conf)
   {
     int duration;
     getInput("wait_duration", duration);

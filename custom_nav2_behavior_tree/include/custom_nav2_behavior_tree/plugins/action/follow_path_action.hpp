@@ -17,13 +17,14 @@
 
 #include <string>
 
-#include "nav2_msgs/action/follow_path.hpp"
-#include "nav2_behavior_tree/bt_action_node.hpp"
+// #include "nav2_msgs/action/follow_path.hpp"
+#include "custom_nav2_msgs/action/follow_path.hpp"
+#include "custom_nav2_behavior_tree/bt_action_node.hpp"
 
 namespace nav2_behavior_tree
 {
 
-class FollowPathAction : public BtActionNode<nav2_msgs::action::FollowPath>
+class FollowPathAction : public BtActionNode<custom_nav2_msgs::action::FollowPath>
 {
 public:
   FollowPathAction(

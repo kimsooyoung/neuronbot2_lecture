@@ -15,7 +15,7 @@
 #include <string>
 #include <memory>
 
-#include "nav2_behavior_tree/plugins/action/clear_costmap_service.hpp"
+#include "custom_nav2_behavior_tree/plugins/action/clear_costmap_service.hpp"
 
 namespace nav2_behavior_tree
 {
@@ -23,7 +23,7 @@ namespace nav2_behavior_tree
 ClearEntireCostmapService::ClearEntireCostmapService(
   const std::string & service_node_name,
   const BT::NodeConfiguration & conf)
-: BtServiceNode<nav2_msgs::srv::ClearEntireCostmap>(service_node_name, conf)
+: BtServiceNode<custom_nav2_msgs::srv::ClearEntireCostmap>(service_node_name, conf)
 {
 }
 

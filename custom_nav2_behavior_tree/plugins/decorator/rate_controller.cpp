@@ -15,7 +15,7 @@
 #include <chrono>
 #include <string>
 
-#include "nav2_behavior_tree/plugins/decorator/rate_controller.hpp"
+#include "custom_nav2_behavior_tree/plugins/decorator/rate_controller.hpp"
 
 namespace nav2_behavior_tree
 {

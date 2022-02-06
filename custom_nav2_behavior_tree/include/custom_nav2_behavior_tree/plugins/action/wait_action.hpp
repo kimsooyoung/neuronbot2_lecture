@@ -17,13 +17,14 @@
 
 #include <string>
 
-#include "nav2_behavior_tree/bt_action_node.hpp"
-#include "nav2_msgs/action/wait.hpp"
+#include "custom_nav2_behavior_tree/bt_action_node.hpp"
+// #include "nav2_msgs/action/wait.hpp"
+#include "custom_nav2_msgs/action/wait.hpp"
 
 namespace nav2_behavior_tree
 {
 
-class WaitAction : public BtActionNode<nav2_msgs::action::Wait>
+class WaitAction : public BtActionNode<custom_nav2_msgs::action::Wait>
 {
 public:
   WaitAction(

@@ -22,7 +22,7 @@
 #include "nav2_util/geometry_utils.hpp"
 #include "behaviortree_cpp_v3/decorator_node.h"
 
-#include "nav2_behavior_tree/plugins/action/truncate_path_action.hpp"
+#include "custom_nav2_behavior_tree/plugins/action/truncate_path_action.hpp"
 
 namespace nav2_behavior_tree
 {

@@ -19,8 +19,9 @@
 #include <memory>
 #include <cmath>
 
-#include "nav2_behavior_tree/bt_action_node.hpp"
-#include "nav2_msgs/action/spin.hpp"
+#include "custom_nav2_behavior_tree/bt_action_node.hpp"
+// #include "nav2_msgs/action/spin.hpp"
+#include "custom_nav2_msgs/action/spin.hpp"
 #include "geometry_msgs/msg/quaternion.hpp"
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_geometry_msgs/tf2_geometry_msgs.h"
@@ -28,14 +29,14 @@
 namespace nav2_behavior_tree
 {
 
-class SpinAction : public BtActionNode<nav2_msgs::action::Spin>
+class SpinAction : public BtActionNode<custom_nav2_msgs::action::Spin>
 {
 public:
   SpinAction(
     const std::string & xml_tag_name,
     const std::string & action_name,
     const BT::NodeConfiguration & conf)
-  : BtActionNode<nav2_msgs::action::Spin>(xml_tag_name, action_name, conf)
+  : BtActionNode<custom_nav2_msgs::action::Spin>(xml_tag_name, action_name, conf)
   {
     double dist;
     getInput("spin_dist", dist);

@@ -19,13 +19,14 @@
 
 #include "geometry_msgs/msg/point.hpp"
 #include "geometry_msgs/msg/quaternion.hpp"
-#include "nav2_msgs/action/navigate_to_pose.hpp"
-#include "nav2_behavior_tree/bt_action_node.hpp"
+// #include "nav2_msgs/action/navigate_to_pose.hpp"
+#include "custom_nav2_msgs/action/navigate_to_pose.hpp"
+#include "custom_nav2_behavior_tree/bt_action_node.hpp"
 
 namespace nav2_behavior_tree
 {
 
-class NavigateToPoseAction : public BtActionNode<nav2_msgs::action::NavigateToPose>
+class NavigateToPoseAction : public BtActionNode<custom_nav2_msgs::action::NavigateToPose>
 {
 public:
   NavigateToPoseAction(

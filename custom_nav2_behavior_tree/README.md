@@ -13,7 +13,7 @@ The [bt_action_node template](include/nav2_behavior_tree/bt_action_node.hpp) all
 
 ```C++
 #include "nav2_msgs/action/follow_path.hpp"
-#include "nav2_behavior_tree/bt_action_node.hpp"
+#include "custom_nav2_behavior_tree/bt_action_node.hpp"
 
 class FollowPathAction : public BtActionNode<nav2_msgs::action::FollowPath>
 {

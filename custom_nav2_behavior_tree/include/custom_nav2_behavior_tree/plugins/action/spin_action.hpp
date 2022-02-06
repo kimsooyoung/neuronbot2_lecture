@@ -17,13 +17,14 @@
 
 #include <string>
 
-#include "nav2_behavior_tree/bt_action_node.hpp"
-#include "nav2_msgs/action/spin.hpp"
+#include "custom_nav2_behavior_tree/bt_action_node.hpp"
+// #include "nav2_msgs/action/spin.hpp"
+#include "custom_nav2_msgs/action/spin.hpp"
 
 namespace nav2_behavior_tree
 {
 
-class SpinAction : public BtActionNode<nav2_msgs::action::Spin>
+class SpinAction : public BtActionNode<custom_nav2_msgs::action::Spin>
 {
 public:
   SpinAction(

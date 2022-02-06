@@ -17,7 +17,7 @@
 
 #include <string>
 
-#include "nav2_behavior_tree/bt_service_node.hpp"
+#include "custom_nav2_behavior_tree/bt_service_node.hpp"
 #include "std_srvs/srv/empty.hpp"
 
 namespace nav2_behavior_tree

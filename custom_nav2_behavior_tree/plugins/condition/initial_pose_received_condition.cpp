@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "nav2_behavior_tree/plugins/condition/initial_pose_received_condition.hpp"
+#include "custom_nav2_behavior_tree/plugins/condition/initial_pose_received_condition.hpp"
 
 namespace nav2_behavior_tree
 {

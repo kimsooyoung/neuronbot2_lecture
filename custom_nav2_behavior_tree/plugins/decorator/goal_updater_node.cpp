@@ -19,7 +19,7 @@
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "behaviortree_cpp_v3/decorator_node.h"
 
-#include "nav2_behavior_tree/plugins/decorator/goal_updater_node.hpp"
+#include "custom_nav2_behavior_tree/plugins/decorator/goal_updater_node.hpp"
 
 #include "rclcpp/rclcpp.hpp"
 
