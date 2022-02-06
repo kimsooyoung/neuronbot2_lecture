@@ -7,6 +7,13 @@ ros2 run tf2_tools view_frames
 ```
 
 ```
+cbp custom_nav2_msgs && roseloq
+cbp custom_nav2_util
+cbp custom_nav2_behavior_tree
+cbp custom_nav2_bt_navigator
+```
+
+```
 sudo apt install ros-eloquent-launch-testing-ament-cmake \
                 ros-eloquent-geographic-msgs \
                 ros-eloquent-diagnostic-updater \
