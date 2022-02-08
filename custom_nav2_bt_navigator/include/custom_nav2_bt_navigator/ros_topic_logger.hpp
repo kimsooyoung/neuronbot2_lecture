@@ -18,11 +18,8 @@
 #include <vector>
 #include "behaviortree_cpp_v3/loggers/abstract_logger.h"
 #include "rclcpp/rclcpp.hpp"
-// #include "nav2_msgs/msg/behavior_tree_log.hpp"
-// #include "nav2_msgs/msg/behavior_tree_status_change.h"
-#include "custom_nav2_msgs/msg/behavior_tree_log.hpp"
-// #include "nav2_msgs/msg/behavior_tree_status_change.h"
-#include "custom_nav2_msgs/msg/behavior_tree_status_change.h"
+#include "nav2_msgs/msg/behavior_tree_log.hpp"
+#include "nav2_msgs/msg/behavior_tree_status_change.h"
 
 namespace nav2_bt_navigator
 {
@@ -42,10 +39,8 @@ public:
 
 protected:
   rclcpp::Node::SharedPtr ros_node_;
-  // rclcpp::Publisher<nav2_msgs::msg::BehaviorTreeLog>::SharedPtr log_pub_;
-  // std::vector<nav2_msgs::msg::BehaviorTreeStatusChange> event_log_;
-  rclcpp::Publisher<custom_nav2_msgs::msg::BehaviorTreeLog>::SharedPtr log_pub_;
-  std::vector<custom_nav2_msgs::msg::BehaviorTreeStatusChange> event_log_;
+  rclcpp::Publisher<nav2_msgs::msg::BehaviorTreeLog>::SharedPtr log_pub_;
+  std::vector<nav2_msgs::msg::BehaviorTreeStatusChange> event_log_;
 };
 
 }   // namespace nav2_bt_navigator

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <memory>
 #include <utility>
 #include "custom_nav2_bt_navigator/ros_topic_logger.hpp"
 #include "tf2_ros/buffer_interface.h"
@@ -24,7 +23,7 @@ RosTopicLogger::RosTopicLogger(
   const rclcpp::Node::SharedPtr & ros_node, const BT::Tree & tree)
 : StatusChangeLogger(tree.rootNode()), ros_node_(ros_node)
 {
-  log_pub_ = ros_node_->create_publisher<custom_nav2_msgs::msg::BehaviorTreeLog>(
+  log_pub_ = ros_node_->create_publisher<nav2_msgs::msg::BehaviorTreeLog>(
     "behavior_tree_log",
     rclcpp::QoS(10));
 }
@@ -35,11 +34,12 @@ void RosTopicLogger::callback(
   BT::NodeStatus prev_status,
   BT::NodeStatus status)
 {
-  custom_nav2_msgs::msg::BehaviorTreeStatusChange event;
+  nav2_msgs::msg::BehaviorTreeStatusChange event;
 
   // BT timestamps are a duration since the epoch. Need to convert to a time_point
   // before converting to a msg.
-  event.timestamp = tf2_ros::toMsg(tf2::TimePoint(timestamp));
+  event.timestamp =
+    tf2_ros::toMsg(std::chrono::time_point<std::chrono::high_resolution_clock>(timestamp));
   event.node_name = node.name();
   event.previous_status = toStr(prev_status, false);
   event.current_status = toStr(status, false);
@@ -56,10 +56,10 @@ void RosTopicLogger::callback(
 void RosTopicLogger::flush()
 {
   if (event_log_.size() > 0) {
-    auto log_msg = std::make_unique<custom_nav2_msgs::msg::BehaviorTreeLog>();
-    log_msg->timestamp = ros_node_->now();
-    log_msg->event_log = event_log_;
-    log_pub_->publish(std::move(log_msg));
+    nav2_msgs::msg::BehaviorTreeLog log_msg;
+    log_msg.timestamp = ros_node_->now();
+    log_msg.event_log = event_log_;
+    log_pub_->publish(log_msg);
     event_log_.clear();
   }
 }
