@@ -112,7 +112,9 @@ protected:
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr goal_sub_;
   
   // customized publisher for goal status
-  rclcpp::Publisher<custom_interfaces::msg::GoalFeedback>::SharedPtr goal_stat_pub_;
+  // refered from : https://github.com/ros2/demos/blob/eloquent/lifecycle/src/lifecycle_talker.cpp
+  // rclcpp::Publisher<custom_interfaces::msg::GoalFeedback>::SharedPtr goal_stat_pub_;
+  std::shared_ptr<rclcpp_lifecycle::LifecyclePublisher<custom_interfaces::msg::GoalFeedback>> goal_stat_pub_;
 
   // The blackboard shared by all of the nodes in the tree
   BT::Blackboard::Ptr blackboard_;
@@ -135,8 +137,38 @@ protected:
   // Spinning transform that can be used by the BT nodes
   std::shared_ptr<tf2_ros::Buffer> tf_;
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
+
+  // Metrics for feedback
+  rclcpp::Time start_time_;
 };
 
 }  // namespace nav2_bt_navigator
+
+inline double euclidean_distance(
+  const geometry_msgs::msg::Point & pos1,
+  const geometry_msgs::msg::Point & pos2)
+{
+  double dx = pos1.x - pos2.x;
+  double dy = pos1.y - pos2.y;
+  double dz = pos1.z - pos2.z;
+  return std::sqrt(dx * dx + dy * dy + dz * dz);
+}
+
+inline double euclidean_distance(
+  const geometry_msgs::msg::Pose & pos1,
+  const geometry_msgs::msg::Pose & pos2)
+{
+  double dx = pos1.position.x - pos2.position.x;
+  double dy = pos1.position.y - pos2.position.y;
+  double dz = pos1.position.z - pos2.position.z;
+  return std::sqrt(dx * dx + dy * dy + dz * dz);
+}
+
+inline double euclidean_distance(
+  const geometry_msgs::msg::PoseStamped & pos1,
+  const geometry_msgs::msg::PoseStamped & pos2)
+{
+  return euclidean_distance(pos1.pose, pos2.pose);
+}
 
 #endif  // NAV2_BT_NAVIGATOR__BT_NAVIGATOR_HPP_
