@@ -7,9 +7,7 @@ ros2 run tf2_tools view_frames
 ```
 
 ```
-cbp custom_nav2_msgs && roseloq
-cbp custom_nav2_util
-cbp custom_nav2_behavior_tree
+cbp custom_interfaces
 cbp custom_nav2_bt_navigator
 ```
 
@@ -46,35 +44,10 @@ ros2 launch neuronbot2_path_planning bringup_launch.py open_rviz:=true
 
 ```
 
-# custom nav2 pkgs
-
-종속성
+# Custom bt navigator
 
 ```
-nav2_util => custom_nav2_behavior_tree => custom_nav2_bt_navigator
-```
-
-무조건 nav2_util  => custom_nav2_util 로 바꾸면 안된다. 
-namespace 이름 자체가 nav2_util 이기 때문에 일부는 유지해줘야 함
-
-
-custom_nav2_util => geometry_utils.hpp
-```
-namespace nav2_util
-{
-namespace geometry_utils
-{
-```
-이렇게
-
-에러
-```
-CMake Warning at CMakeLists.txt:53 (add_library):
-  Cannot generate a safe runtime search path for target
-  custom_bt_navigator_core because there is a cycle in the constraint graph:
-```
-nav2_msgs, custom_nav2_msgs 이렇게 두개 있어서 그럼
-
-```
-[bt_navigator-7] [ERROR] [bt_navigator]: Couldn't open input XML file:
+ros2 launch neuronbot2_gazebo neuronbot2_world.launch.py world_model:=mememan_world.model
+ros2 launch neuronbot2_path_planning custom_bringup_launch.py open_rviz:=true
+ros2 topic echo /goal_status
 ```

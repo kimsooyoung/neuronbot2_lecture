@@ -21,6 +21,8 @@
 #include <utility>
 #include <vector>
 
+#include "nav2_util/geometry_utils.hpp"
+#include "nav2_util/robot_utils.hpp"
 #include "nav2_behavior_tree/bt_conversions.hpp"
 #include "nav2_bt_navigator/ros_topic_logger.hpp"
 
@@ -28,7 +30,8 @@ namespace nav2_bt_navigator
 {
 
 BtNavigator::BtNavigator()
-: nav2_util::LifecycleNode("bt_navigator", "", true)
+: nav2_util::LifecycleNode("bt_navigator", "", true),
+  start_time_(0)
 {
   RCLCPP_INFO(get_logger(), "Creating");
 
@@ -71,7 +74,7 @@ BtNavigator::on_configure(const rclcpp_lifecycle::State & /*state*/)
     rclcpp::SystemDefaultsQoS(),
     std::bind(&BtNavigator::onGoalPoseReceived, this, std::placeholders::_1));
 
-  goal_stat_pub_ = create_publisher<custom_interfaces::msg::GoalFeedback>("topic", 10);
+  goal_stat_pub_ = create_publisher<custom_interfaces::msg::GoalFeedback>("goal_status", 10);
 
   action_server_ = std::make_unique<ActionServer>(
     get_node_base_interface(),
@@ -124,6 +127,8 @@ BtNavigator::on_activate(const rclcpp_lifecycle::State & /*state*/)
 
   action_server_->activate();
 
+  goal_stat_pub_->on_activate();
+
   return nav2_util::CallbackReturn::SUCCESS;
 }
 
@@ -133,6 +138,8 @@ BtNavigator::on_deactivate(const rclcpp_lifecycle::State & /*state*/)
   RCLCPP_INFO(get_logger(), "Deactivating");
 
   action_server_->deactivate();
+
+  goal_stat_pub_->on_deactivate();
 
   return nav2_util::CallbackReturn::SUCCESS;
 }
@@ -201,6 +208,7 @@ BtNavigator::navigateToPose()
   BT::Tree tree = bt_->buildTreeFromText(xml_string_, blackboard_);
 
   RosTopicLogger topic_logger(client_node_, tree);
+  auto goal_stat_msg = custom_interfaces::msg::GoalFeedback();
 
   auto on_loop = [&]() {
       if (action_server_->is_preempt_requested()) {
@@ -209,6 +217,23 @@ BtNavigator::navigateToPose()
         initializeGoalPose();
       }
       topic_logger.flush();
+
+      // action server feedback (pose, duration of task,
+      // number of recoveries, and distance remaining to goal)
+      nav2_util::getCurrentPose(
+        goal_stat_msg.current_pose, *tf_, "map", "base_link", 0.1);
+
+      geometry_msgs::msg::PoseStamped goal_pose;
+      blackboard_->get("goal", goal_pose);
+
+      goal_stat_msg.distance_remaining = euclidean_distance(
+        goal_stat_msg.current_pose.pose, goal_pose.pose);
+
+      int recovery_count = 0;
+      // blackboard_->get<int>("number_recoveries", recovery_count);
+      goal_stat_msg.number_of_recoveries = recovery_count;
+      goal_stat_msg.navigation_time = now() - start_time_;
+      goal_stat_pub_->publish(goal_stat_msg);
     };
 
   // Execute the BT that was previously created in the configure step
@@ -245,6 +270,8 @@ BtNavigator::initializeGoalPose()
 
   // Update the goal pose on the blackboard
   blackboard_->set("goal", goal->pose);
+
+  start_time_ = now();
 }
 
 void
