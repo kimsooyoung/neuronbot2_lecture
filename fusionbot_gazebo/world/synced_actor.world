@@ -7,8 +7,9 @@
       <skin>
         <filename>walk.dae</filename>
       </skin>
-      <animation name="animation">
+      <animation name="walking">
         <filename>walk.dae</filename>
+        <!-- <interpolate_x>true</interpolate_x> -->
       </animation>
       <script>
         <trajectory id="0" type="walking">
