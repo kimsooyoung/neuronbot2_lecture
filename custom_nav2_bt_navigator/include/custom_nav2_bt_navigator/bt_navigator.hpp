@@ -28,6 +28,7 @@
 #include "rclcpp_action/rclcpp_action.hpp"
 #include "tf2_ros/transform_listener.h"
 #include "tf2_ros/create_timer_ros.h"
+#include "custom_interfaces/msg/goal_feedback.hpp"
 
 namespace nav2_bt_navigator
 {
@@ -109,7 +110,9 @@ protected:
    */
   void onGoalPoseReceived(const geometry_msgs::msg::PoseStamped::SharedPtr pose);
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr goal_sub_;
-  // rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+  
+  // customized publisher for goal status
+  rclcpp::Publisher<custom_interfaces::msg::GoalFeedback>::SharedPtr goal_stat_pub_;
 
   // The blackboard shared by all of the nodes in the tree
   BT::Blackboard::Ptr blackboard_;

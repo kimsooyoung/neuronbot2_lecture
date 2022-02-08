@@ -71,6 +71,8 @@ BtNavigator::on_configure(const rclcpp_lifecycle::State & /*state*/)
     rclcpp::SystemDefaultsQoS(),
     std::bind(&BtNavigator::onGoalPoseReceived, this, std::placeholders::_1));
 
+  goal_stat_pub_ = create_publisher<custom_interfaces::msg::GoalFeedback>("topic", 10);
+
   action_server_ = std::make_unique<ActionServer>(
     get_node_base_interface(),
     get_node_clock_interface(),
@@ -144,6 +146,7 @@ BtNavigator::on_cleanup(const rclcpp_lifecycle::State & /*state*/)
   //              and the main thread resetting the resources, see #1344
 
   goal_sub_.reset();
+  goal_stat_pub_.reset();
   client_node_.reset();
   self_client_.reset();
 

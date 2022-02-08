@@ -1,0 +1,5 @@
+# custom interface for bt_navigator NavToPose topic
+geometry_msgs/PoseStamped current_pose
+builtin_interfaces/Duration navigation_time
+int16 number_of_recoveries
+float32 distance_remaining
