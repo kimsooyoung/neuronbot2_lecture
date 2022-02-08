@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(neuronbot2_path_planning)
+project(custom_interfaces)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -17,16 +17,21 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_python REQUIRED)
-find_package(rcl_interfaces REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(rclpy REQUIRED)
-# find_package(custom_nav2_msgs REQUIRED)
-find_package(custom_nav2_bt_navigator REQUIRED)
-# find_package(custom_nav2_rviz_plugins REQUIRED)
+
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+
+find_package(rosidl_default_generators REQUIRED)
+
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/GoalFeedback.msg"
+  DEPENDENCIES builtin_interfaces geometry_msgs std_msgs
+ )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -38,26 +43,5 @@ if(BUILD_TESTING)
   #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
-
-# add_executable(test_node src/test.cpp)
-# ament_target_dependencies(test_node rclcpp custom_nav2_msgs)     # CHANGE
-
-# Install Python modules
-ament_python_install_package(${PROJECT_NAME})
-
-install(PROGRAMS
-  scripts/goal_pose_pub.py
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-install(PROGRAMS
-  scripts/nav_to_pose_action_client.py
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-install(
-  DIRECTORY launch rviz config map
-  DESTINATION share/${PROJECT_NAME}
-)
 
 ament_package()
