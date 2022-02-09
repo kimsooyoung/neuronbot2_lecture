@@ -35,7 +35,7 @@ def generate_launch_description():
     pkg_path = os.path.join(get_package_share_directory('fusionbot_gazebo'))
     pkg_gazebo_ros = FindPackageShare(package='gazebo_ros').find('gazebo_ros')   
 
-    world_path = os.path.join(pkg_path, 'world', 'no_roof_small_warehouse.world')
+    world_path = os.path.join(pkg_path, 'world', 'fusionbot_factory.world')
 
     # Start Gazebo server
     start_gazebo_server_cmd = IncludeLaunchDescription(
