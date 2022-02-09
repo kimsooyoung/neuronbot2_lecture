@@ -33,7 +33,7 @@ if(BUILD_TESTING)
 endif()
 
 ## Install
-install(DIRECTORY launch world 
+install(DIRECTORY launch world models
   DESTINATION  share/${PROJECT_NAME}
 )
 
