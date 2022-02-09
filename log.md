@@ -199,3 +199,42 @@ Navigate to the CMakeLists.txt line 144 and change ament_export_targets to ament
 ```
 [rviz2-10] [ERROR] [rviz2]: PluginlibFactory: The plugin for class 'custom_nav2_rviz_plugins/Navigation 2' failed to load. Error: According to the loaded plugin descriptions the class custom_nav2_rviz_plugins/Navigation 2 with base class type rviz_common::Panel does not exist. Declared types are  nav2_rviz_plugins/Navigation 2
 ```
+
+# custom bt navigator 중
+
+```
+[bt_navigator-7] [WARN] [LifecyclePublisher]: Trying to publish message on the topic '/goal_status', but the publisher is not activated
+```
+
+# custom nav2 pkgs
+
+종속성
+
+```
+nav2_util => custom_nav2_behavior_tree => custom_nav2_bt_navigator
+```
+
+무조건 nav2_util  => custom_nav2_util 로 바꾸면 안된다. 
+namespace 이름 자체가 nav2_util 이기 때문에 일부는 유지해줘야 함
+
+
+custom_nav2_util => geometry_utils.hpp
+```
+namespace nav2_util
+{
+namespace geometry_utils
+{
+```
+이렇게
+
+에러
+```
+CMake Warning at CMakeLists.txt:53 (add_library):
+  Cannot generate a safe runtime search path for target
+  custom_bt_navigator_core because there is a cycle in the constraint graph:
+```
+nav2_msgs, custom_nav2_msgs 이렇게 두개 있어서 그럼
+
+```
+[bt_navigator-7] [ERROR] [bt_navigator]: Couldn't open input XML file:
+```

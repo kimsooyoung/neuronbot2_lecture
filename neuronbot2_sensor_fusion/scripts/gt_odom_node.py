@@ -19,6 +19,7 @@ from rclpy.node import Node
 
 from gazebo_msgs.srv import GetEntityState
 from nav_msgs.msg import Odometry
+from rosgraph_msgs.msg import Clock
 
 class EntityStateClient(Node):
 
@@ -58,11 +59,22 @@ class OdomUtilNode(Node):
             Odometry, 'gt_odom', 1
         )
 
+        self._sim_clock_subscriber = self.create_subscription(
+            Clock, 'clock', self.clock_callback, 10
+        )
+
         self._timer = self.create_timer(0.1, self.timer_callback)
         self._odom_msg = Odometry()
         
         self._odom_msg.child_frame_id = 'base_footprint'
         self._odom_msg.header.frame_id = 'odom'
+
+        self._sim_time = Clock()
+
+    def clock_callback(self, msg):
+
+        self._sim_time.clock.sec = msg.clock.sec
+        self._sim_time.clock.nanosec = msg.clock.nanosec
 
     def timer_callback(self):
 
@@ -77,6 +89,9 @@ class OdomUtilNode(Node):
                     'exception while calling entity state service: %r' % state_client_future.exception()
                 )
             else:
+                self._odom_msg.header.stamp.sec = self._sim_time.clock.sec
+                self._odom_msg.header.stamp.nanosec = self._sim_time.clock.nanosec
+
                 self._odom_msg.pose.pose = state_response.state.pose
                 self._odom_msg.twist.twist = state_response.state.twist
             finally:
