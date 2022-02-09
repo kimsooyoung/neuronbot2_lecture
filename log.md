@@ -238,3 +238,9 @@ nav2_msgs, custom_nav2_msgs 이렇게 두개 있어서 그럼
 ```
 [bt_navigator-7] [ERROR] [bt_navigator]: Couldn't open input XML file:
 ```
+
+```
+[gzclient -2] gzclient: /usr/include/boost/smart_ptr/shared_ptr.hpp:734: typename boost::detail::sp_member_access<T>::type boost::shared_ptr<T>::operator->() const [with T = gazebo::rendering::Camera; typename boost::detail::sp_member_access<T>::type = gazebo::rendering::Camera*]: Assertion `px != 0' failed.
+```
+
+source /usr/share/gazebo/setup.sh
