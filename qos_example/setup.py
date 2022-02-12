@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'py_param_tutorial'
+package_name = 'qos_example'
 
 setup(
     name=package_name,
@@ -14,13 +14,13 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='kimsooyoung',
-    maintainer_email='kimsooyoung@todo.todo',
+    maintainer_email='tge1375@naver.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'example_1 = py_param_tutorial.basic_usage:main',
+            'laser_sub_node = qos_example.laser_sub:main',
         ],
     },
 )
