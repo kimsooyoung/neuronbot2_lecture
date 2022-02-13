@@ -23,7 +23,8 @@ def generate_launch_description():
         launch_ros.actions.Node(
             parameters=[slam_toolbox_param_dir],
             package='slam_toolbox',
-            node_executable='async_slam_toolbox_node',
+            # node_executable='async_slam_toolbox_node',
+            node_executable='sync_slam_toolbox_node',
             name='slam_toolbox',
             output='screen'
             ),

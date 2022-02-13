@@ -15,3 +15,7 @@ Topic information: Topic: /scan | Type: sensor_msgs/msg/LaserScan | Count: 0 | S
                    Topic: /tf | Type: tf2_msgs/msg/TFMessage | Count: 752 | Serialization Format: cdr
                    Topic: /clock | Type: rosgraph_msgs/msg/Clock | Count: 128 | Serialization Format: cdr
 ```
+
+# rviz plugin 문제
+
+https://github.com/SteveMacenski/slam_toolbox/blob/912a58ce14bda6aa3008e2dca682bc8e43d6dab1/CMakeLists.txt#L63
