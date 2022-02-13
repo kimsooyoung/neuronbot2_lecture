@@ -4,6 +4,7 @@ import rclpy
 from rclpy.node import Node
 
 from geometry_msgs.msg import PoseWithCovarianceStamped
+from rosgraph_msgs.msg import Clock
 
 class InitialPosePublisher(Node):
 
@@ -14,22 +15,31 @@ class InitialPosePublisher(Node):
             PoseWithCovarianceStamped, 'initialpose', 1
         )
         
-        timer_period = 0.5  # seconds
-
-        self.timer_ = self.create_timer(
-            timer_period, self.timer_callback
+        self._sim_clock_subscriber = self.create_subscription(
+            Clock, 'clock', self.clock_callback, 10
         )
-        
+
         self.msg = PoseWithCovarianceStamped()
 
-    def timer_callback(self):
+    def clock_callback(self, msg):
 
+        print(msg)
+    
         self.msg.header.frame_id = 'map'
-        self.msg.header.stamp = self.get_clock().now().to_msg()
+        self.msg.header.stamp.sec = msg.clock.sec
+        self.msg.header.stamp.nanosec = msg.clock.nanosec
 
         self.msg.pose.pose.position.x = float(input('> X position : '))
         self.msg.pose.pose.position.y = float(input('> Y position : '))
         self.msg.pose.pose.orientation.w = float(input('> Yaw Orientation : '))
+
+        self.msg.pose.covariance = [0.25, 0.0, 0.0, 0.0, 0.0, \
+            0.0, 0.0, 0.25, 0.0, 0.0, \
+            0.0, 0.0, 0.0, 0.0, 0.0, \
+            0.0, 0.0, 0.0, 0.0, 0.0, \
+            0.0, 0.0, 0.0, 0.0, 0.0, \
+            0.0, 0.0, 0.0, 0.0, 0.0, \
+            0.0, 0.0, 0.0, 0.0, 0.0, 0.06853891945200942]
         
         self.get_logger().info(f"""Publishing Initial Position
             X: {self.msg.pose.pose.position.x}
