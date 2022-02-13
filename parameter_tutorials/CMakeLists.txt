@@ -38,6 +38,14 @@ endif()
 # Install Python modules
 ament_python_install_package(${PROJECT_NAME})
 
+add_executable(basic_param_node src/basic_param_node.cpp)
+ament_target_dependencies(basic_param_node rclcpp)
+
+install(TARGETS 
+  basic_param_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 # Install Python executables
 install(PROGRAMS
   scripts/basic_param_node.py
