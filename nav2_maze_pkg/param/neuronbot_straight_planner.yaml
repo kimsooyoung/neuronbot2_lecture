@@ -87,7 +87,7 @@ controller_server:
 
     # DWB parameters
     debug_trajectory_details: True
-    min_vel_x: -0.5
+    min_vel_x: 0.0
     min_vel_y: 0.0
     max_vel_x: 0.5
     max_vel_y: 0.0
@@ -95,15 +95,15 @@ controller_server:
     min_speed_xy: 0.0
     max_speed_xy: 0.5
     min_speed_theta: 0.0
-    acc_lim_x: 0.5
+    acc_lim_x: 2.5
     acc_lim_y: 0.0
-    acc_lim_theta: 0.8
+    acc_lim_theta: 1.2
     decel_lim_x: -0.5
     decel_lim_y: 0.0
-    decel_lim_theta: -0.8
+    decel_lim_theta: -1.2
     vx_samples: 20
-    vy_samples: 0
-    vtheta_samples: 20
+    vy_samples: 5
+    vtheta_samples: 25
     sim_time: 1.7
     linear_granularity: 0.05
     xy_goal_tolerance: 0.25
@@ -135,6 +135,7 @@ local_costmap:
       robot_radius: 0.20
       inflation_layer:
         cost_scaling_factor: 3.0
+        inflation_radius: 0.1
       obstacle_layer:
         enabled: True
         observation_sources: scan
@@ -209,6 +210,9 @@ global_costmap:
           data_type: "PointCloud2"
       static_layer:
         map_subscribe_transient_local: True
+      inflation_layer:
+        cost_scaling_factor: 3.0
+        inflation_radius: 0.2
       always_send_full_costmap: True
   global_costmap_client:
     ros__parameters:

@@ -507,6 +507,7 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: goal_pose
+    - Class: nav2_rviz_plugins/GoalTool
   Transformation:
     Current:
       Class: rviz_default_plugins/TF
@@ -526,8 +527,8 @@ Visualization Manager:
       Scale: 170.1640167236328
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz_default_plugins)
-      X: 1.4198421239852905
-      Y: 1.3120012283325195
+      X: 1.842341423034668
+      Y: 1.4375253915786743
     Saved: ~
 Window Geometry:
   Displays:
@@ -547,5 +548,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1871
-  X: 49
-  Y: 31
+  X: 287
+  Y: 197
