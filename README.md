@@ -51,3 +51,7 @@ ros2 launch neuronbot2_gazebo neuronbot2_world.launch.py world_model:=mememan_wo
 ros2 launch neuronbot2_path_planning custom_bringup_launch.py open_rviz:=true
 ros2 topic echo /goal_status
 ```
+
+
+# Conflict Test
+
