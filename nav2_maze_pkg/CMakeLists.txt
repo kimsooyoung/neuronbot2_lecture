@@ -18,6 +18,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(nav2_bringup REQUIRED)
+# find_package(custom_nav2_bt_navigator REQUIRED)
 
 # uncomment the following section in order to fill in
 # further dependencies manually.
