@@ -28,12 +28,11 @@ from launch_ros.actions import PushRosNamespace
 def generate_launch_description():
     # Get the launch directory
     my_nav_dir = get_package_share_directory('neuronbot2_path_planning')
-    bt_nav_dir = get_package_share_directory('custom_nav2_bt_navigator')
     my_launch_dir = os.path.join(my_nav_dir, 'launch')
     my_param_dir = os.path.join(my_nav_dir, 'config')
+    my_param_file = 'neuronbot_straight_planner.yaml'
 
-    my_param_file = 'custom_navigator_params.yaml'
-    my_bt_file =  os.path.join(bt_nav_dir, 'behavior_trees', 'navigate_w_replanning_and_recovery.xml')
+    my_bt_file = 'navigate_w_replanning_and_recovery.xml'
     my_map_dir = os.path.join(my_nav_dir, 'map')
     my_map_file = 'mememan.yaml'
 
@@ -106,7 +105,7 @@ def generate_launch_description():
                               'use_lifecycle_mgr': 'false'}.items()),
 
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(my_launch_dir, 'navigation_launch.py')),
+            PythonLaunchDescriptionSource(os.path.join(my_launch_dir, 'custom_navigation_launch.py')),
             launch_arguments={'namespace': namespace,
                               'use_sim_time': use_sim_time,
                               'autostart': autostart,

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from nav2_msgs.action import NavigateToPose
+from custom_interfaces.msg import GoalFeedback
 
 import rclpy
 from rclpy.action import ActionClient
@@ -14,8 +15,18 @@ class NavToPoseActionClient(Node):
         self._action_client = ActionClient(
             self, NavigateToPose, 'NavigateToPose'
         )
-        
+
+        self._topic_sub = self.create_subscription(
+            GoalFeedback,
+            'goal_status',
+            self.goal_status_callback,
+            10)
+
         self._goal_pose = NavigateToPose.Goal()
+
+    def goal_status_callback(self, msg):
+
+        print(f"Distance from Goal: {msg.distance_remaining}")
 
     def send_goal(self):
 
@@ -55,6 +66,7 @@ class NavToPoseActionClient(Node):
     def goal_response_callback(self, future):
         
         goal_handle = future.result()
+
         self._get_result_future = goal_handle.get_result_async()
         self._get_result_future.add_done_callback(self.get_result_callback)
 
@@ -63,15 +75,13 @@ class NavToPoseActionClient(Node):
         result = future.result().result
         self.get_logger().info(f"Feedback from Srv: {str(result)}")
 
-        rclpy.shutdown()
-
 def main(args=None):
     rclpy.init(args=args)
 
     action_client = NavToPoseActionClient()
     action_client.send_goal()
 
-    rclpy.spin_once(action_client)
+    rclpy.spin(action_client)
 
 
 if __name__ == '__main__':
