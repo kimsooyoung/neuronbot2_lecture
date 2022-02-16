@@ -37,6 +37,7 @@ def generate_launch_description():
     bt_xml_file = LaunchConfiguration('bt_xml_file')
     map_subscribe_transient_local = LaunchConfiguration('map_subscribe_transient_local')
 
+    # 이것을 ㅇㅇㅇ 다.
     lifecycle_nodes = ['controller_server',
                        'planner_server',
                        'recoveries_server',
