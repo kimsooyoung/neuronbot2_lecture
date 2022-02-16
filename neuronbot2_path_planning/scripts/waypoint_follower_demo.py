@@ -83,7 +83,7 @@ class WaypointActionClient(Node):
         feedback = feedback_msg.feedback
 
         if self._feedback_cnt % 10 == 0:
-            self.get_logger().info(f"Feedback from Srv: {str(feedback)}")
+            self.get_logger().info(f"Current Waypoint : {feedback.current_waypoint}")
 
     def goal_response_callback(self, future):
         
