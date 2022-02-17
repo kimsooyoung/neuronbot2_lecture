@@ -21,9 +21,9 @@ find_package(ament_cmake_python REQUIRED)
 find_package(rcl_interfaces REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
-# find_package(custom_nav2_msgs REQUIRED)
+find_package(custom_interfaces REQUIRED)
 find_package(custom_nav2_bt_navigator REQUIRED)
-# find_package(custom_nav2_rviz_plugins REQUIRED)
+
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -52,6 +52,11 @@ install(PROGRAMS
 
 install(PROGRAMS
   scripts/nav_to_pose_action_client.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  scripts/waypoint_follower_demo.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
