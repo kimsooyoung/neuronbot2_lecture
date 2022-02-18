@@ -27,7 +27,9 @@ def generate_launch_description():
     # Get the launch directory
     my_nav_dir = get_package_share_directory('nav2_maze_pkg')
     my_param_dir = os.path.join(my_nav_dir, 'param')
-    my_param_file = 'neuronbot_params.yaml'
+    # my_param_file = 'neuronbot_params.yaml'
+    my_param_file = 'neuronbot_pure_pursuit.yaml'
+
     my_bt_file ='navigate_w_replanning_and_recovery.xml'
 
     namespace = LaunchConfiguration('namespace')
