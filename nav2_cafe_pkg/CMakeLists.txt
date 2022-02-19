@@ -33,7 +33,7 @@ if(BUILD_TESTING)
 endif()
 
 ## Install
-install(DIRECTORY launch world param
+install(DIRECTORY launch map param rviz world
   DESTINATION  share/${PROJECT_NAME}
 )
 
