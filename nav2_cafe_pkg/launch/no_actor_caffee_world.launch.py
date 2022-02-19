@@ -31,7 +31,7 @@ def generate_launch_description():
     pkg_path = os.path.join(get_package_share_directory('nav2_cafe_pkg'))
     pkg_gazebo_ros = FindPackageShare(package='gazebo_ros').find('gazebo_ros')   
 
-    world_path = os.path.join(pkg_path, 'world', 'caffee.world')
+    world_path = os.path.join(pkg_path, 'world', 'no_actor_caffee_with_neuronbot.world')
 
     # Start Gazebo server
     start_gazebo_server_cmd = IncludeLaunchDescription(
@@ -44,7 +44,22 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py'))
     )
 
+    urdf = os.path.join(
+        get_package_share_directory('neuronbot2_description'),
+        'urdf',
+        'neuronbot2.urdf'
+    )
+
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        node_executable='robot_state_publisher',
+        node_name='robot_state_publisher',
+        output='screen',
+        arguments=[urdf]
+    )
+
     return LaunchDescription([
         start_gazebo_server_cmd,
         start_gazebo_client_cmd,
+        robot_state_publisher,
     ])
