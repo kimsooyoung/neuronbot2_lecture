@@ -11,3 +11,19 @@ actor들은 바닥 뚫어버림
 ros2 launch nav2_cafe_pkg caffee_world.launch.py
 # terminal 2
 ros2 launch nav2_cafe_pkg bringup_launch.py open_rviz:=true
+
+
+# terminal 2
+ros2 launch nav2_cafe_pkg localization_launch.py use_sim_time:=true
+# terminal 3
+ros2 launch nav2_cafe_pkg navigation_launch.py use_sim_time:=true
+Or
+ros2 launch nav2_cafe_pkg custom_navigation_launch.py use_sim_time:=true
+# terminal 4
+ros2 launch nav2_cafe_pkg rviz_view_launch.py use_sim_time:=true
+
+
+일부러 장애물 놓기
+clear costmap
+
+갈 수 없는 영역 만들기 - 일부러 검정으로 칠하기

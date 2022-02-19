@@ -31,7 +31,9 @@ def generate_launch_description():
     my_launch_dir = os.path.join(my_nav_dir, 'launch')
     my_param_dir = os.path.join(my_nav_dir, 'param')
 
-    my_param_file = 'neuronbot_pure_pursuit.yaml'
+    my_param_file = 'neuronbot_dwb.yaml'
+    # my_param_file = 'neuronbot_pure_pursuit.yaml'
+
     my_bt_file = 'navigate_w_replanning_and_recovery.xml'
 
     my_map_dir = os.path.join(my_nav_dir, 'map')

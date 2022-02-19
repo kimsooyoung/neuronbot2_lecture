@@ -77,18 +77,51 @@ bt_navigator_rclcpp_node:
   ros__parameters:
     use_sim_time: False
 
-
 controller_server:
   ros__parameters:
-    controller_plugin_types: ["nav2_pure_pursuit_controller/PurePursuitController"]
-    controller_plugin_ids: ["FollowPath"]
     use_sim_time: False
-    FollowPath:
-      debug_trajectory_details: True
-      desired_linear_vel: 0.4
-      lookahead_dist: 0.5
-      max_angular_vel: 1.0
-      transform_tolerance: 1.0
+    controller_frequency: 20.0
+    min_x_velocity_threshold: 0.001
+    min_y_velocity_threshold: 0.5
+    min_theta_velocity_threshold: 0.001
+
+    movement_time_allowance: 20.0
+
+    # DWB parameters
+    debug_trajectory_details: True
+    min_vel_x: 0.0
+    min_vel_y: 0.0
+    max_vel_x: 0.5
+    max_vel_y: 0.0
+    max_vel_theta: 0.8
+    min_speed_xy: 0.0
+    max_speed_xy: 0.5
+    min_speed_theta: 0.0
+    acc_lim_x: 2.5
+    acc_lim_y: 0.0
+    acc_lim_theta: 1.2
+    decel_lim_x: -0.5
+    decel_lim_y: 0.0
+    decel_lim_theta: -1.2
+    vx_samples: 20
+    vy_samples: 5
+    vtheta_samples: 25
+    sim_time: 1.7
+    linear_granularity: 0.05
+    xy_goal_tolerance: 0.25
+    critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
+    BaseObstacle.scale: 0.09
+
+    # from https://navigation.ros.org/configuration/packages/configuring-dwb-controller.html?highlight=forward_point_distance
+    PathAlign.scale: 50.0
+    GoalAlign.scale: 1.0
+    PathAlign.forward_point_distance: 0.20
+    GoalAlign.forward_point_distance: 0.20
+    PathDist.scale: 50.0
+    GoalDist.scale: 0.0
+    RotateToGoal.scale: 20.0
+    RotateToGoal.slowing_factor: 5.0
+    RotateToGoal.lookahead_time: -1.0
 
 controller_server_rclcpp_node:
   ros__parameters:
@@ -107,10 +140,10 @@ local_costmap:
       resolution: 0.05
       plugin_names: ["obstacle_layer", "voxel_layer", "inflation_layer"]
       plugin_types: ["nav2_costmap_2d::ObstacleLayer", "nav2_costmap_2d::VoxelLayer", "nav2_costmap_2d::InflationLayer"]
-      robot_radius: 0.20
+      robot_radius: 0.25
       inflation_layer:
         cost_scaling_factor: 3.0
-        inflation_radius: 0.1
+        inflation_radius: 0.25
       obstacle_layer:
         enabled: True
         observation_sources: scan
@@ -155,7 +188,7 @@ global_costmap:
       use_sim_time: False
       plugin_names: ["static_layer", "obstacle_layer", "voxel_layer", "inflation_layer"]
       plugin_types: ["nav2_costmap_2d::StaticLayer", "nav2_costmap_2d::ObstacleLayer", "nav2_costmap_2d::VoxelLayer", "nav2_costmap_2d::InflationLayer"]
-      robot_radius: 0.20
+      robot_radius: 0.25
       resolution: 0.05
       obstacle_layer:
         enabled: True
@@ -187,7 +220,7 @@ global_costmap:
         map_subscribe_transient_local: True
       inflation_layer:
         cost_scaling_factor: 3.0
-        inflation_radius: 0.2
+        inflation_radius: 0.25
       always_send_full_costmap: True
   global_costmap_client:
     ros__parameters:
@@ -204,7 +237,7 @@ map_server:
 planner_server:
   ros__parameters:
     use_sim_time: False
-    tolerance: 0.0
+    tolerance: 0.5
     use_astar: false
 
 planner_server_rclcpp_node:
