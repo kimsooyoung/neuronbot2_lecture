@@ -23,7 +23,10 @@ ros2 launch nav2_cafe_pkg custom_navigation_launch.py use_sim_time:=true
 ros2 launch nav2_cafe_pkg rviz_view_launch.py use_sim_time:=true
 
 
-일부러 장애물 놓기
-clear costmap
+# 일부러 장애물 놓기
 
-갈 수 없는 영역 만들기 - 일부러 검정으로 칠하기
+
+# clear costmap
+global_costmap/clear_entirely_global_costmap
+
+# 갈 수 없는 영역 만들기 - 일부러 검정으로 칠하기
