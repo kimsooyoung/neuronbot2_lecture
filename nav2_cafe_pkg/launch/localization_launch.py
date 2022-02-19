@@ -25,25 +25,18 @@ from nav2_common.launch import RewrittenYaml
 
 def generate_launch_description():
     # Get the launch directory
-    my_nav_dir = get_package_share_directory('nav2_maze_pkg')
-    my_param_dir = os.path.join(my_nav_dir, 'param')
-    # my_param_file = 'neuronbot_params.yaml'
+    my_nav_dir = get_package_share_directory('nav2_cafe_pkg')
+    my_param_dir = os.path.join(my_nav_dir, 'param')    
     my_param_file = 'neuronbot_pure_pursuit.yaml'
-
-    my_bt_file ='navigate_w_replanning_and_recovery.xml'
+    my_map_dir = os.path.join(my_nav_dir, 'map')
+    my_map_file = 'cafe_map.yaml'
 
     namespace = LaunchConfiguration('namespace')
+    map_yaml_file = LaunchConfiguration('map')
     use_sim_time = LaunchConfiguration('use_sim_time')
     autostart = LaunchConfiguration('autostart')
     params_file = LaunchConfiguration('params_file')
-    bt_xml_file = LaunchConfiguration('bt_xml_file')
-    map_subscribe_transient_local = LaunchConfiguration('map_subscribe_transient_local')
-
-    lifecycle_nodes = ['controller_server',
-                       'planner_server',
-                       'recoveries_server',
-                       'bt_navigator',
-                       'waypoint_follower']
+    lifecycle_nodes = ['map_server', 'amcl']
 
     # Map fully qualified names to relative ones so the node's namespace can be prepended.
     # In case of the transforms (tf), currently, there doesn't seem to be a better alternative
@@ -57,15 +50,13 @@ def generate_launch_description():
     # Create our own temporary YAML files that include substitutions
     param_substitutions = {
         'use_sim_time': use_sim_time,
-        'bt_xml_filename': bt_xml_file,
-        'autostart': autostart,
-        'map_subscribe_transient_local': map_subscribe_transient_local}
+        'yaml_filename': map_yaml_file}
 
     configured_params = RewrittenYaml(
-            source_file=params_file,
-            root_key=namespace,
-            param_rewrites=param_substitutions,
-            convert_types=True)
+        source_file=params_file,
+        root_key=namespace,
+        param_rewrites=param_substitutions,
+        convert_types=True)
 
     return LaunchDescription([
         # Set env var to print messages to stdout immediately
@@ -74,6 +65,11 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'namespace', default_value='',
             description='Top-level namespace'),
+
+        DeclareLaunchArgument(
+            'map',
+            default_value=os.path.join(my_map_dir, my_map_file),
+            description='[localize] Full path to map yaml file to load'),
 
         DeclareLaunchArgument(
             'use_sim_time', default_value='false',
@@ -88,50 +84,18 @@ def generate_launch_description():
             default_value=os.path.join(my_param_dir, my_param_file),
             description='Full path to the ROS2 parameters file to use'),
 
-        DeclareLaunchArgument(
-            'bt_xml_file',
-            default_value=os.path.join(my_param_dir, my_bt_file),
-            description='Full path to the behavior tree xml file to use'),
-
-        DeclareLaunchArgument(
-            'map_subscribe_transient_local', default_value='true',
-            description='Whether to set the map subscriber QoS to transient local'),
-
         Node(
-            package='nav2_controller',
-            node_executable='controller_server',
-            output='screen',
-            parameters=[{configured_params}],
-            remappings=remappings),
-
-        Node(
-            package='nav2_planner',
-            node_executable='planner_server',
-            node_name='planner_server',
+            package='nav2_map_server',
+            node_executable='map_server',
+            node_name='map_server',
             output='screen',
             parameters=[configured_params],
             remappings=remappings),
 
         Node(
-            package='nav2_recoveries',
-            node_executable='recoveries_server',
-            node_name='recoveries_server',
-            output='screen',
-            parameters=[{'use_sim_time': use_sim_time}],
-            remappings=remappings),
-
-        Node(
-            package='nav2_bt_navigator',
-            node_executable='bt_navigator',
-            node_name='bt_navigator',
-            output='screen',
-            parameters=[configured_params],
-            remappings=remappings),
-
-        Node(
-            package='nav2_waypoint_follower',
-            node_executable='waypoint_follower',
-            node_name='waypoint_follower',
+            package='nav2_amcl',
+            node_executable='amcl',
+            node_name='amcl',
             output='screen',
             parameters=[configured_params],
             remappings=remappings),
@@ -139,10 +103,9 @@ def generate_launch_description():
         Node(
             package='nav2_lifecycle_manager',
             node_executable='lifecycle_manager',
-            node_name='lifecycle_manager_navigation',
+            node_name='lifecycle_manager_localization',
             output='screen',
             parameters=[{'use_sim_time': use_sim_time},
                         {'autostart': autostart},
-                        {'node_names': lifecycle_nodes}]),
-
+                        {'node_names': lifecycle_nodes}])
     ])
