@@ -37,7 +37,8 @@ def generate_launch_description():
     my_bt_file = 'navigate_w_replanning_and_recovery.xml'
 
     my_map_dir = os.path.join(my_nav_dir, 'map')
-    my_map_file = 'cafe_map.yaml'
+    # my_map_file = 'cafe_map.yaml'
+    my_map_file = 'cafe_map_editted.yaml'
 
     # Create the launch configuration variables
     namespace = LaunchConfiguration('namespace')
