@@ -34,9 +34,9 @@ def generate_launch_description():
     # my_param_file = 'neuronbot_params_astart.yaml'
     # my_param_file = 'neuronbot_params_tolerance.yaml'
     # my_param_file = 'neuronbot_straight_planner.yaml'
-    my_param_file = 'neuronbot_pure_pursuit.yaml'
+    # my_param_file = 'neuronbot_pure_pursuit.yaml'
 
-    # my_param_file = 'neuronbot_params_critics.yaml'
+    my_param_file = 'neuronbot_params_critics.yaml'
 
     my_bt_file = 'navigate_w_replanning_and_recovery.xml'
     my_map_dir = os.path.join(my_nav_dir, 'map')
