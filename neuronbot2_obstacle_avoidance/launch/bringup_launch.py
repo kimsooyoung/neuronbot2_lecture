@@ -33,12 +33,12 @@ def generate_launch_description():
     navigation_launch_path = os.path.join(pkg_path, 'launch', 'navigation_launch.py')
     rviz_view_launch_path = os.path.join(pkg_path, 'launch', 'rviz_view_launch.py')
     map_file_path = os.path.join(pkg_path, 'map', 'mememan.yaml')
-    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_original.yaml')
+    nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_original.yaml')
     # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_disable_inflation_layer.yaml')
     # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_change_inflation_radius.yaml')
     # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_change_robot_radius.yaml')
     # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_change_local_costmap_size.yaml')
-    nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_test.yaml')
+    # nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_cost_scaling_factor.yaml')
 
     bt_file_path = os.path.join(pkg_path, 'config', 'navigate_w_replanning_and_recovery.xml')
 
