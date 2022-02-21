@@ -1,38 +1,29 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+about: Create a report to help us improve (각종 버그에 대한 Issue를 남겨주세요)
+title: "[BUG] : "
+labels: bug
+assignees: kimsooyoung, YyohanY
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+# **What happened? 어떤 문제가 생겼는지 상세히 기술해주세요.**
+실행한 프로그램 및 커멘드 라인 / 예상한 결과 / 문제 상황 / 시도해본 내용 (스크린샷이 있을 시 첨부하면 더욱 좋습니다.)
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+## **To Reproduce 실행한 프로그램 및 커멘드 라인**
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## **Expected behavior 예상한 결과**
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## **Screenshots 스크린샷**
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+## **Environment 사용환경**
+ - OS Version : 
+ - ROS Version :
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+## **Relevant log output (관련 로그 output을 적어주세요)**
 
-**Additional context**
-Add any other context about the problem here.
+### **충분한 리서치 없이 무분별한 Issue는 삭제됩니다.**
+이슈를 만들기 전에...
+- [ ] 구글링을 통해 충분한 검색을 해보았다. *
+- [ ] Repo내 같은 이슈가 존재하는지 확인해 보았다. *
+- [ ] 문제 해결을 위해 이슈에 충분한 정보를 제공하였다. *
