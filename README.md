@@ -1,6 +1,39 @@
 # neuronbot2_lecture
 
+Packages for ROS 2 Autonomous Robot lecture.
 
+## Day 1
+---
+
+### Robot Description
+
+* package build
+
+```
+cd ~/<your-workspace>
+colcon build --symlink-install --packages-select neuronbot2_lecture
+source ./install/setup.bash
+```
+
+* example1 - neuronbot2 description 
+
+```
+ros2 launch neuronbot2_lecture neuronbot_description.launch.py
+```
+
+<p align="center">
+    <img src="./media/neuronbot2_description.gif" height="300">
+</p>
+
+* example2 - spot description
+
+<p align="center">
+    <img src="./media/spot_description.gif" height="300">
+</p>
+
+```
+ros2 launch neuronbot2_lecture spot.launch.py
+```
 
 ```
 ros2 run tf2_tools view_frames
