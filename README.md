@@ -209,6 +209,62 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ros2 launch fusionbot_gazebo racecourse.launch.py
 ```
 
+### Odometry and Sensor Fusion
+
+* various odometry
+
+Lidar Odom
+
+<p>
+    <p align="center">
+        <img src="./media/laser_odom.gif" height="200">
+        <img src="./media/various_odom.png" height="200">
+    </p>
+</p>
+
+```bash
+# Package build
+cbp rf2o_laser_odometry && roseloq && cbp neuronbot2_lecture && roseloq 
+
+# launch in each terminal
+ros2 launch neuronbot2_gazebo neuronbot2_world.launch.py world_model:=mememan_world.model
+ros2 launch neuronbot2_lecture laser_odom.launch.py
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
+* robot_localization
+
+build packages
+
+```bash
+cd ~/<your-ws>/src
+git clone -b eloquent-devel https://github.com/Adlink-ROS/robot_localization.git
+cd ~/<your-ws>/
+
+colcon build --symlink-install --packages-select robot_localization
+# long waiting time
+source ./install/setup.bash
+
+colcon build --symlink-install --packages-select neuronbot2_sensor_fusion
+source ./install/setup.bash
+```
+
+Filtered Odom
+
+<p>
+    <p align="center">
+        <img src="./media/filtered_odom.gif" height="200">
+        <img src="./media/filtered_odom.png" height="100">
+    </p>
+</p>
+
+```bash
+# launch in each terminals
+ros2 launch neuronbot2_sensor_fusion neuronbot2_world.launch.py
+ros2 launch neuronbot2_sensor_fusion robot_localization.launch.py
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
 # Day 3
 ---
 
