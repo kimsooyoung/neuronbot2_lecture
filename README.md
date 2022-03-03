@@ -313,8 +313,9 @@ rosbag replay and visualization with rviz
 
 <p>
     <p align="center">
-        <img src="./media/rosbag_odom1.png" height="200">
-        <img src="./media/rosbag_odom2.png" height="200">
+        <img src="./media/rosbag_odom1.png" height="150">
+        <img src="./media/rosbag_odom2.png" height="150">
+        <img src="./media/rosbag_odom3.png" height="150">
     </p>
 </p>
 
