@@ -656,60 +656,182 @@ $ ros2 run neuronbot2_path_planning waypoint_follower_demo.py
 
 ### Navigation - Obstable Avoidance
 
-------------------------------------------------------------
+* Explore Nav2's Local Planner
+
+<p>
+    <p align="center">
+        <img src="./media/local_planner.png" height="150">
+    </p>
+</p>
+
+* Play with `Costmap` paramters
+
+Basic Launch
 
 ```
-ros2 launch neuronbot2_lecture spot.launch.py
+ros2 launch neuronbot2_gazebo neuronbot2_world.launch.py world_model:=mememan_world.model
+
+cbp neuronbot2_obstacle_avoidance && roseloq
+ros2 launch neuronbot2_obstacle_avoidance bringup_launch.py open_rviz:=true
 ```
 
-```
-ros2 run tf2_tools view_frames
+Try to change parameter files and then build again.
+
+* neuronbot2_obstacle_avoidance/launch/neuronbot_description.launch.py
+
+```python
+nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_original.yaml')
+# nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_disable_inflation_layer.yaml')
+# nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_change_inflation_radius.yaml')
+# nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_change_robot_radius.yaml')
+# nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_change_local_costmap_size.yaml')
+# nav2_param_file_path = os.path.join(pkg_path, 'config', 'neuronbot_params_cost_scaling_factor.yaml')
 ```
 
-```
-cbp custom_interfaces
-cbp custom_nav2_bt_navigator
-```
+* Disable `Inflation Layer`
 
-```
-sudo apt install ros-eloquent-launch-testing-ament-cmake \
-                ros-eloquent-geographic-msgs \
-                ros-eloquent-diagnostic-updater \
-                ros-eloquent-diagnostic-msgs -y
+swap comment from `neuronbot_params_original.yaml` to `neuronbot_params_disable_inflation_layer.yaml`, and then colcon build again. Don't forget to source updated workspace.
 
+<p>
+    <p align="center">
+        <img src="./media/inflation_layer.png" height="200">
+    </p>
+</p>
+
+* Edit `Inflation Radius`
+
+swap comment from `neuronbot_params_original.yaml` to `neuronbot_params_change_inflation_radius.yaml`. And then execute as same with previous exercise.
+
+<p>
+    <p align="center">
+        <img src="./media/inflation_radius.png" height="200">
+    </p>
+</p>
+
+* Edit `Robot Radius`
+
+swap comment from `neuronbot_params_original.yaml` to `neuronbot_params_change_robot_radius.yaml`. And then execute as same with previous exercise.
+
+<p>
+    <p align="center">
+        <img src="./media/robot_radius.png" height="200">
+    </p>
+</p>
+
+* Edit `Local Costmap Size`
+
+swap comment from `neuronbot_params_original.yaml` to `neuronbot_params_change_local_costmap_size.yaml`. And then execute as same with previous exercise.
+
+<p>
+    <p align="center">
+        <img src="./media/local_costmap_size.png" height="200">
+    </p>
+</p>
+
+* Edit `Cost Scaling Factor`
+
+swap comment from `neuronbot_params_original.yaml` to `neuronbot_params_cost_scaling_factor.yaml`. And then execute as same with previous exercise.
+
+<p>
+    <p align="center">
+        <img src="./media/cost_scaling_factor.png" height="200">
+    </p>
+</p>
+
+> Custom Controller Plugin (Pure Pursuit Controlller)
+
+please refer [this](https://github.com/kimsooyoung/navigation2_tutorials.git) repository
+
+```bash
 cd ~/neuronbot2_eloquent_ws/src
-git clone -b eloquent-devel https://github.com/Adlink-ROS/robot_localization.git
+git clone https://github.com/kimsooyoung/navigation2_tutorials.git
+
 cd ~/neuronbot2_eloquent_ws
-cba
+cbp nav2_pure_pursuit_controller && roseloq
 ```
 
-```
-ros2 launch neuronbot2_gazebo neuronbot2_world.launch.py
-ros2 launch neuronbot2_sensor_fusion robot_localization.launch.py
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
+<p>
+    <p align="center">
+        <img src="./media/pure_pursuit.gif" height="200">
+    </p>
+</p>
+
+* Café World
+
+```bash
+cbp nav2_cafe_pkg && roseloq
+ros2 launch nav2_cafe_pkg caffee_world.launch.py
+
+ros2 launch nav2_cafe_pkg bringup_launch.py open_rviz:=true
 ```
 
-# AMCL
-```
-ros2 launch neuronbot2_gazebo neuronbot2_world.launch.py world_model:=mememan_world.model
+<p>
+    <p align="center">
+        <img src="./media/cafe_world.png" height="200">
+    </p>
+</p>
 
-ros2 launch neuronbot2_amcl amcl.launch.py
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
-```
-
-# nav2
-```
-ros2 launch neuronbot2_gazebo neuronbot2_world.launch.py world_model:=mememan_world.model
-ros2 launch neuronbot2_path_planning bringup_launch.py open_rviz:=true
+* Clear Costmap
 
 ```
-
-# Custom bt navigator
-
-```
-ros2 launch neuronbot2_gazebo neuronbot2_world.launch.py world_model:=mememan_world.model
-ros2 launch neuronbot2_path_planning custom_bringup_launch.py open_rviz:=true
-ros2 topic echo /goal_status
+ros2 service call /global_costmap/clear_entirely_global_costmap nav2_msgs/srv/ClearEntireCostmap request:\ {}
 ```
 
-# My mannual Conflict
+* Set Banned Area
+
+Paint Specific Area in 2D map Black for Banned Area.
+
+<p>
+    <p align="center">
+        <img src="./media/bannded_area.png" height="150">
+        <img src="./media/bannded_area_rviz.png" height="150">
+    </p>
+</p>
+
+* Real Robot Obstacle Avoidance
+
+<p>
+    <p align="center">
+        <img src="./media/real_robot_obstacle_avoidance.gif" height="150">
+    </p>
+</p>
+
+---
+
+If there's an Error or you have a question. Please leave ISSUE in [this link](https://github.com/kimsooyoung/neuronbot2_lecture/issues/new/choose)
+
+<p>
+    <p align="center">
+        <img src="./media/issue.png" height="100">
+    </p>
+</p>
+
+## Reference
+
+* https://github.com/Adlink-ROS/neuronbot2
+* https://navigation.ros.org/plugin_tutorials/docs/writing_new_nav2controller_plugin.html
+* https://github.com/ros-planning/navigation2
+* https://navigation.ros.org/configuration/packages/configuring-costmaps.html 
+* https://velog.io/@legendre13/Pure-Pursuit 
+* https://github.com/ros-planning/navigation2/tree/main/nav2_lifecycle_manager
+* https://design.ros2.org/articles/node_lifecycle.html
+* http://docs.ros.org/en/lunar/api/nav_msgs/html/msg/Path.html
+* http://wiki.ros.org/urdf/XML/link
+* http://library.isr.ist.utl.pt/docs/roswiki/dwa_local_planner.html
+* https://docs.ros.org/en/eloquent/Tutorials/Custom-ROS2-Interfaces.html
+* http://wiki.ros.org/cartographer
+* http://wiki.ros.org/gmapping
+* https://roscon.ros.org/2019/talks/roscon2019_slamtoolbox.pdf
+* https://google-cartographer-ros.readthedocs.io/en/latest/ros_api.html#occupancy-grid-node
+* https://en.wikipedia.org/wiki/Kalman_filter
+* https://roboticsbackend.com/category/ros2 
+* http://docs.ros.org/en/noetic/api/robot_localization/html/index.html
+* https://github.com/syuntoku14/fusion2urdf 
+* https://github.com/ros-simulation/gazebo_ros_pkgs/wiki/ROS-2-Migration:-Ray-sensors 
+* http://gazebosim.org/tutorials?tut=actor&cat=build_robot
+* http://wiki.ros.org/urdf/XML/link
+* http://wiki.ros.org/urdf/XML/joint
+* https://github.com/clearpathrobotics/spot_ros 
+
+
+
